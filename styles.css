@@ -196,12 +196,19 @@ body {
 
 .hero-buttons {
     display: flex;
-    flex-direction: column; /* Empilha os botões em mobile */
-    gap: 10px;
+    flex-direction: column; /* Mobile: botões empilhados */
+    gap: 12px;
     max-width: 300px;
-    margin: 0 auto;
+    margin: 20px auto;
 }
 
+@media (min-width: 768px) {
+    .hero-buttons {
+        flex-direction: row; /* Desktop: botões lado a lado */
+        max-width: 100%;
+        justify-content: center;
+    }
+}
 .btn {
     display: inline-flex;
     align-items: center;
