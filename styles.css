@@ -196,8 +196,10 @@ body {
 
 .hero-buttons {
     display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    flex-direction: column; /* Empilha os botões em mobile */
+    gap: 10px;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .btn {
@@ -710,9 +712,9 @@ body {
     }
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 0 15px;
+@media (min-width: 768px) {
+    .hero-buttons {
+        flex-direction: row; /* Alinha horizontalmente em desktop */
     }
     
     .hero-title {
