@@ -156,12 +156,10 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
-/* Ajuste para mobile */
 @media (max-width: 768px) {
     .banner-image {
-        max-width: 100%; /* Ocupa toda a largura em mobile */
-        padding: 0 15px; /* Adiciona um pequeno espaçamento nas laterais */
+        max-width: 100%;
+        padding: 0 15px;
     }
 }
 .hero-banner:hover .banner-image {
