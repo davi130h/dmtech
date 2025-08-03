@@ -165,57 +165,45 @@ body {
 /* Hero Section */
 .hero {
     padding: 60px 0;
-    position: relative;
+    background-color: #f8fafc;
 }
 
 .hero-content {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 40px;
-    min-height: calc(100vh - 130px);
 }
 
 .hero-text {
     flex: 1;
-    animation: fadeInUp 0.8s ease-out;
-}
-
-.hero-title {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-}
-
-.highlight {
-    color: var(--secondary-color);
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: var(--text-light);
-    margin-bottom: 2rem;
-    max-width: 600px;
-}
-
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 2rem;
+    order: 1; /* Texto vem primeiro no mobile */
 }
 
 .hero-banner {
     flex: 1;
-    text-align: center;
-    animation: fadeIn 0.8s ease-out;
+    text-align: right; /* Alinha a imagem à direita */
+    order: 2; /* Imagem vem depois no mobile */
 }
 
 .banner {
-    width: 100%;
-    max-width: 500px;
+    max-width: 100%;
+    height: auto;
     border-radius: 16px;
     box-shadow: 0 4px 16px rgba(0, 119, 204, 0.1);
 }
 
+/* Responsividade */
+@media (max-width: 768px) {
+    .hero-content {
+        flex-direction: column;
+    }
+    
+    .hero-text,
+    .hero-banner {
+        order: initial; /* Reseta a ordem no mobile */
+        text-align: center;
+    }
 /* Services Section */
 .services {
     padding: 80px 0;
