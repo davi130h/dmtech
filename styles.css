@@ -244,3 +244,13 @@ textarea:focus {
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 119, 204, 0.1);
 }
+/* Adicione às caixas principais */
+.service-card,
+.quote-form-container,
+.about-content,
+.contact-content {
+  border-radius: 16px;
+  background-color: #f8fbff;
+  border: 1px solid #cce5ff;
+  box-shadow: 0 4px 16px rgba(0, 119, 204, 0.06);
+}
