@@ -1,5 +1,5 @@
 /* ==========================================================================
-   DESIGN COMPLETO - DMTECH 2025 (v2 - com efeito no menu)
+   DESIGN FINAL - DMTECH 2025 (v3 - com Hero Split-Screen)
    ========================================================================== */
 
 /* 1. CONFIGURAÇÕES GLOBAIS E PALETA DE CORES
@@ -30,8 +30,8 @@
 html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 80px; }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    line-height: 1.6;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.7; /* Aumenta o espaçamento entre linhas para melhor leitura */
     color: var(--text-dark);
     background-color: var(--bg-light);
     padding-top: 70px;
@@ -41,55 +41,16 @@ body {
 
 .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* 2. HEADER E NAVEGAÇÃO (COM EFEITO HOVER/ACTIVE)
+/* 2. HEADER E NAVEGAÇÃO
    ========================================================================== */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    box-shadow: var(--shadow-sm);
-    transition: var(--transition);
-}
-
+.header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); z-index: 1000; box-shadow: var(--shadow-sm); transition: var(--transition); }
 .nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; padding: 0 20px; }
 .logo { font-weight: 800; font-size: 1.75rem; color: var(--text-dark); text-decoration: none; }
 .nav-menu { display: flex; list-style: none; gap: 2rem; }
-
-/* --- NOVO ESTILO DOS LINKS DO MENU --- */
-.nav-link {
-    position: relative;
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    padding: 0.25rem 0;
-    transition: color 0.3s ease;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; /* Posição do sublinhado */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 2px;
-    background-color: var(--primary-blue);
-    transition: width 0.3s ease-out;
-}
-
-.nav-link:hover, .nav-link.active {
-    color: var(--primary-blue);
-}
-
-.nav-link:hover::after, .nav-link.active::after {
-    width: 100%;
-}
-/* --- FIM DO NOVO ESTILO --- */
-
+.nav-link { position: relative; text-decoration: none; color: var(--text-dark); font-weight: 500; padding: 0.25rem 0; transition: color 0.3s ease; }
+.nav-link::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background-color: var(--primary-blue); transition: width 0.3s ease-out; }
+.nav-link:hover, .nav-link.active { color: var(--primary-blue); }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
 .hamburger { display: none; cursor: pointer; width: 30px; height: 24px; position: relative; z-index: 1001; background: transparent; border: none; padding: 0; }
 .hamburger span { display: block; position: absolute; height: 3px; width: 100%; background: var(--text-dark); border-radius: 3px; left: 0; transition: var(--transition); transform-origin: left center; }
 .hamburger span:nth-child(1) { top: 0; }
@@ -104,19 +65,122 @@ body {
     .nav-menu { position: fixed; top: 70px; left: 0; transform: translateX(-100%); width: 100%; height: calc(100vh - 70px); background: var(--bg-white); flex-direction: column; padding: 2rem; transition: transform 0.4s ease-out; box-shadow: var(--shadow-lg); z-index: 999; overflow-y: auto; }
     .nav-menu.active { transform: translateX(0); }
     .nav-link { padding: 1rem; display: block; font-size: 1.2rem; }
-    .nav-link::after { display: none; } /* Oculta o efeito no menu mobile */
+    .nav-link::after { display: none; }
 }
 
-/* 3. SEÇÃO HERO (INÍCIO)
+/* 3. SEÇÃO HERO (NOVO LAYOUT SPLIT-SCREEN)
    ========================================================================== */
-.hero { padding: 100px 0; background-color: var(--bg-light); text-align: center; }
-.hero-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; color: var(--text-dark); }
-.hero-title .highlight { color: var(--primary-blue); }
-.hero-subtitle { font-size: 1.25rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 650px; margin-left: auto; margin-right: auto; }
-.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.hero-banner { display: none; }
+.hero {
+    padding: 60px 0;
+    background-color: var(--bg-white);
+}
 
-/* 4. BOTÕES (NOVO ESTILO)
+.hero-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.hero-banner-column, .hero-text-column {
+    flex: 1; /* Ambas as colunas ocupam metade do espaço */
+    padding: 1rem;
+}
+
+.hero-banner-column {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    color: white;
+    box-shadow: var(--shadow-xl);
+}
+
+.hero-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(17, 24, 39, 0.6), rgba(17, 24, 39, 0.9));
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+.banner-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.banner-highlight {
+    color: #38bdf8; /* Azul claro para destaque */
+    display: block;
+    font-size: 3.5rem;
+}
+
+.banner-contact p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.banner-contact a {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.hero-text-column {
+    text-align: left;
+}
+
+.hero-title {
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.hero-title .highlight {
+    color: var(--primary-blue);
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 500px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+@media (max-width: 992px) {
+    .hero-container {
+        flex-direction: column;
+    }
+    .hero-text-column {
+        text-align: center;
+    }
+    .hero-buttons {
+        justify-content: center;
+    }
+}
+
+/* 4. BOTÕES
    ========================================================================== */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 14px 32px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: var(--transition); cursor: pointer; border: 2px solid transparent; font-size: 1rem; }
 .btn-primary { background: var(--gradient); color: white; box-shadow: var(--shadow); }
@@ -124,9 +188,9 @@ body {
 .btn-secondary { background-color: var(--bg-white); color: var(--text-dark); border-color: var(--border-color); }
 .btn-secondary:hover { border-color: var(--primary-blue); color: var(--primary-blue); transform: translateY(-3px); box-shadow: var(--shadow); }
 
-/* 5. SEÇÃO DE SERVIÇOS E CARDS (NOVO ESTILO)
+/* 5. SEÇÃO DE SERVIÇOS E CARDS
    ========================================================================== */
-.services { padding: 80px 0; background-color: var(--bg-white); }
+.services { padding: 80px 0; background-color: var(--bg-light); }
 .section-header { text-align: center; margin-bottom: 4rem; }
 .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-dark); }
 .section-subtitle { color: var(--text-light); font-size: 1.125rem; max-width: 700px; margin: 0 auto; }
@@ -147,16 +211,16 @@ body {
 .featured .feature::before { color: white; }
 .service-badge { position: absolute; top: 20px; right: 20px; background: #10b981; color: white; padding: 6px 16px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
 
-/* 6. SEÇÃO DE ORÇAMENTO E FORMULÁRIO (NOVO ESTILO)
+/* 6. SEÇÃO DE ORÇAMENTO E FORMULÁRIO
    ========================================================================== */
-.quote-form { padding: 80px 0; background-color: var(--bg-light); }
-.quote-form-container { width: 100%; max-width: 800px; padding: 48px; border-radius: 24px; background-color: var(--bg-white); box-shadow: var(--shadow-lg); border: 1px solid #e5e7eb; }
+.quote-form { padding: 80px 0; background-color: var(--bg-white); }
+.quote-form-container { width: 100%; max-width: 800px; margin: auto; padding: 48px; border-radius: 24px; background-color: var(--bg-white); box-shadow: var(--shadow-lg); border: 1px solid #e5e7eb; }
 .form-group { margin-bottom: 1.5rem; }
 .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark); }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 1rem; transition: var(--transition); background-color: var(--bg-light); }
 .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--border-focus-color); outline: none; box-shadow: 0 0 0 3px rgba(58, 91, 255, 0.2); background-color: var(--bg-white); }
 
-/* 7. CHECKBOXES EM FORMATO DE TAG (NOVO ESTILO)
+/* 7. CHECKBOXES EM FORMATO DE TAG
    ========================================================================== */
 .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
 .checkbox-item { display: block; position: relative; cursor: pointer; }
