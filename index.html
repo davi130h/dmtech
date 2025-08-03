@@ -250,13 +250,33 @@
                     </div>
 
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
                         <a href="https://wa.me/5575998587081?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" class="btn btn-primary">
                             📋 Solicitar Orçamento
                         </button>
                         <p class="form-note">* Campos obrigatórios</p>
                     </div>
                 </form>
+                <form id="quoteForm">
+<script>
+function enviarParaWhatsApp() {
+    const form = document.getElementById('quoteForm');
+    const formData = new FormData(form);
+    
+    // Pegue os campos que você deseja
+    const nome = formData.get('nome') || '';
+    const email = formData.get('email') || '';
+    const mensagem = formData.get('mensagem') || '';
+    
+    const texto = `Olá! Gostaria de solicitar um orçamento.
+*Nome:* ${nome}
+*Email:* ${email}
+*Mensagem:* ${mensagem}`;
+    
+    const url = `https://wa.me/5575998587081?text=${encodeURIComponent(texto)}`;
+    
+    window.open(url, '_blank');
+}
 
                 <div id="successMessage" class="success-message" style="display: none;">
                     <div class="success-content">
