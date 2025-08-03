@@ -8,22 +8,48 @@ document.addEventListener('DOMContentLoaded', function() {
     const quoteForm = document.getElementById("quoteForm");
     const successMessage = document.getElementById("successMessage");
 
-    // --- SEÇÃO DE MENU E NAVEGAÇÃO ---
+    // --- SEÇÃO DE MENU E NAVEGAÇÃO (CORRIGIDA) ---
 
     // Função para abrir/fechar o menu mobile
     const toggleMenu = () => {
-        const isOpen = navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+        navMenu.classList.toggle('active');
+        // Impede a rolagem do corpo da página quando o menu está aberto
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     };
 
-    // Evento de clique no ícone de hamburguer
-    hamburger.addEventListener('click', toggleMenu);
+    // 1. Evento de clique no ícone de hamburguer
+    hamburger.addEventListener('click', (event) => {
+        event.stopPropagation(); // Impede que o clique se propague para outros elementos
+        toggleMenu();
+    });
 
-    // Fecha o menu ao clicar em um link (para navegação na mesma página)
+    // 2. Evento de clique nos links do menu para rolagem suave
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
+        link.addEventListener('click', function(event) {
+            // Verifica se o link é uma âncora para a mesma página
+            if (this.hash !== "") {
+                event.preventDefault(); // Impede o comportamento padrão do link
+
+                const targetId = this.hash;
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    // Calcula a posição correta, descontando a altura do header
+                    const headerOffset = header.offsetHeight;
+                    const elementPosition = targetSection.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    // Rola suavemente para a seção
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            }
+
+            // 3. Fecha o menu se estiver aberto (apenas em modo mobile)
+            if (navMenu.classList.contains('active')) {
                 toggleMenu();
             }
         });
@@ -68,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Função principal que lida com o envio do formulário
     function handleQuoteForm(event) {
-        event.preventDefault(); // Impede o envio padrão
+        event.preventDefault();
 
         const formData = new FormData(this);
         const data = {
@@ -81,15 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
             urgency: formData.get('urgency')
         };
 
-        // Valida os dados antes de continuar
         if (!validateForm(data)) {
-            return; // Para a execução se a validação falhar
+            return;
         }
 
-        // Se a validação passar, envia para o WhatsApp
         sendToWhatsApp(data);
-
-        // Mostra a mensagem de sucesso e reseta o formulário
         showSuccessMessage();
         this.reset();
     }
@@ -141,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const encodedMessage = encodeURIComponent(messageParts.filter(Boolean).join('\n'));
         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-        // Abre o WhatsApp em uma nova aba. Esta é a ação de redirecionamento.
         window.open(whatsappURL, "_blank" );
     }
 
