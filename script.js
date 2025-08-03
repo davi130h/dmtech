@@ -1,4 +1,4 @@
-// Versão final e unificada do script.js
+// Versão final e unificada do script.js (v2 - com menu dinâmico)
 document.addEventListener('DOMContentLoaded', function() {
     // --- SEÇÃO DE ELEMENTOS DO DOM ---
     const hamburger = document.querySelector('.hamburger');
@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header');
     const quoteForm = document.getElementById("quoteForm");
     const successMessage = document.getElementById("successMessage");
+    // Seleciona todas as seções que têm um ID
+    const sections = document.querySelectorAll('section[id]');
 
     // --- SEÇÃO DE MENU E NAVEGAÇÃO ---
     const toggleMenu = () => {
@@ -38,6 +40,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // --- NOVA FUNÇÃO: ATIVAR LINK DO MENU AO ROLAR A PÁGINA ---
+    const activateMenuOnScroll = () => {
+        let scrollY = window.pageYOffset;
+
+        sections.forEach(current => {
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - header.offsetHeight - 50; // Adiciona um pequeno offset
+            let sectionId = current.getAttribute('id');
+
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                // Remove a classe 'active' de todos os links
+                navLinks.forEach(link => link.classList.remove('active'));
+                
+                // Adiciona a classe 'active' ao link correspondente à seção visível
+                document.querySelector('.nav-menu a[href*=' + sectionId + ']').classList.add('active');
+            }
+        });
+    };
+
+    // Adiciona os "ouvintes" de evento para rolagem e carregamento da página
+    window.addEventListener('scroll', activateMenuOnScroll);
+    window.addEventListener('load', activateMenuOnScroll);
+
 
     // --- SEÇÃO DE EFEITOS DE SCROLL E ANIMAÇÕES ---
     let lastScroll = 0;
@@ -77,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(this);
         const data = {
             name: formData.get('name')?.trim(),
-            // LINHA 'city' REMOVIDA DAQUI
             device: formData.get('device'),
             brand: formData.get('brand')?.trim(),
             services: formData.getAll('services'),
@@ -125,7 +150,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageParts = [
             `Olá! Gostaria de solicitar um orçamento.\n`,
             `*Nome:* ${data.name}`,
-            // LINHA 'city' REMOVIDA DAQUI
             `*Equipamento:* ${deviceText}`,
             data.brand && `*Marca/Modelo:* ${data.brand}`,
             `\n*Serviços Desejados:*`,
