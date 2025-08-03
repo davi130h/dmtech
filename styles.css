@@ -734,3 +734,34 @@ textarea:focus {
     outline: 2px solid var(--secondary-color);
     outline-offset: 2px;
 }
+/* Animações */
+.will-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.will-animate.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Transição suave para o formulário */
+#quoteForm, #successMessage {
+    transition: opacity 0.3s ease;
+}
+
+/* Header animation */
+.header {
+    transition: 
+        background-color 0.3s ease, 
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* Service card hover */
+.service-card {
+    transition: 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease;
+}
