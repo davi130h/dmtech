@@ -175,34 +175,32 @@ body {
     gap: 40px;
 }
 
+/* Desktop - Imagem à direita */
 .hero-text {
     flex: 1;
-    order: 1; /* Texto vem primeiro no mobile */
+    order: 1; /* Texto primeiro no desktop */
 }
 
 .hero-banner {
     flex: 1;
-    text-align: right; /* Alinha a imagem à direita */
-    order: 2; /* Imagem vem depois no mobile */
+    text-align: right;
+    order: 2; /* Imagem depois no desktop */
 }
 
-.banner {
-    max-width: 100%;
-    height: auto;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 119, 204, 0.1);
-}
-
-/* Responsividade */
+/* Mobile - Imagem primeiro */
 @media (max-width: 768px) {
     .hero-content {
         flex-direction: column;
     }
     
-    .hero-text,
+    .hero-text {
+        order: 2; /* Texto depois no mobile */
+    }
+    
     .hero-banner {
-        order: initial; /* Reseta a ordem no mobile */
+        order: 1; /* Imagem primeiro no mobile */
         text-align: center;
+        margin-bottom: 30px;
     }
 }
 /* Services Section */
