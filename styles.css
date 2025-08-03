@@ -238,3 +238,9 @@ textarea:focus {
     outline: 2px solid var(--secondary-color);
     outline-offset: 2px;
 }
+.banner {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 119, 204, 0.1);
+}
