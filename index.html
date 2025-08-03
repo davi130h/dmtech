@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manutenção em Notebooks e Computadores - Serviços Profissionais</title>
     <meta name="description" content="Serviços profissionais de manutenção em notebooks e computadores. Formatação, troca de teclado, memória RAM, substituição de HD por SSD e muito mais.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,11 +14,11 @@
         <nav class="nav">
             <div class="nav-container">
                 <div class="logo">
-                    <span class="logo-icon">👩‍💻</span>
-                    <span class="logo-text">DMTECH</span>
+                    <!-- O logo foi simplificado para apenas texto, conforme o novo design. Você pode ajustar se preferir. -->
+                    DMTECH
                 </div>
                 <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Início</a></li>
+                    <li><a href="#home" class="nav-link active">Início</a></li>
                     <li><a href="#services" class="nav-link">Serviços</a></li>
                     <li><a href="#quote" class="nav-link">Orçamento</a></li>
                     <li><a href="#about" class="nav-link">Sobre</a></li>
@@ -33,10 +33,26 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
+    <!-- ====================================================== -->
+    <!--      INÍCIO DA SEÇÃO HERO ATUALIZADA                   -->
+    <!-- ====================================================== -->
     <section id="home" class="hero">
-        <div class="hero-content container">
-            <div class="hero-text">
+        <div class="hero-container container">
+            <!-- Coluna da Esquerda: Banner -->
+            <div class="hero-banner-column">
+                <!-- Certifique-se que a imagem "banner.png" está na pasta correta -->
+                <img src="banner.png" alt="Banner de Manutenção de Computador" class="hero-banner-image">
+                <div class="hero-banner-overlay">
+                    <h2 class="banner-title">Seu computador <span class="banner-highlight">QUEBROU?</span></h2>
+                    <div class="banner-contact">
+                        <p>Faça um orçamento com a gente:</p>
+                        <a href="tel:+5575998587081">(75 ) 9 9858-7081</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna da Direita: Texto e Botões -->
+            <div class="hero-text-column">
                 <h1 class="hero-title">Manutenção Profissional em <span class="highlight">Notebooks e Computadores</span></h1>
                 <p class="hero-subtitle">Serviços especializados com qualidade e garantia. Seu equipamento funcionando como novo!</p>
                 <div class="hero-buttons">
@@ -44,13 +60,14 @@
                     <a href="#contact" class="btn btn-secondary">Entre em Contato</a>
                 </div>
             </div>
-            <div class="hero-banner">
-                <img src="banner.png" alt="Manutenção em Notebooks e Computadores" class="banner">
-            </div>
         </div>
     </section>
+    <!-- ====================================================== -->
+    <!--      FIM DA SEÇÃO HERO ATUALIZADA                      -->
+    <!-- ====================================================== -->
 
-    <!-- Services Section -->
+
+    <!-- Services Section (O resto do arquivo permanece o mesmo) -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-header">
@@ -63,9 +80,9 @@
                     <h3 class="service-title">Formatação</h3>
                     <p class="service-description">Formatação completa do sistema operacional com instalação de drivers e programas essenciais.</p>
                     <div class="service-features">
-                        <span class="feature">✓ Backup de dados</span>
-                        <span class="feature">✓ Instalação do Windows</span>
-                        <span class="feature">✓ Drivers atualizados</span>
+                        <span class="feature">Backup de dados</span>
+                        <span class="feature">Instalação do Windows</span>
+                        <span class="feature">Drivers atualizados</span>
                     </div>
                 </div>
                 
@@ -74,9 +91,9 @@
                     <h3 class="service-title">Troca de Teclado</h3>
                     <p class="service-description">Substituição de teclados de notebooks com peças originais e garantia de qualidade.</p>
                     <div class="service-features">
-                        <span class="feature">✓ Peças originais</span>
-                        <span class="feature">✓ Instalação profissional</span>
-                        <span class="feature">✓ Teste completo</span>
+                        <span class="feature">Peças originais</span>
+                        <span class="feature">Instalação profissional</span>
+                        <span class="feature">Teste completo</span>
                     </div>
                 </div>
                 
@@ -85,9 +102,9 @@
                     <h3 class="service-title">Upgrade de Memória RAM</h3>
                     <p class="service-description">Aumento de performance com instalação de memória RAM compatível com seu equipamento.</p>
                     <div class="service-features">
-                        <span class="feature">✓ Análise de compatibilidade</span>
-                        <span class="feature">✓ Memórias de qualidade</span>
-                        <span class="feature">✓ Teste de estabilidade</span>
+                        <span class="feature">Análise de compatibilidade</span>
+                        <span class="feature">Memórias de qualidade</span>
+                        <span class="feature">Teste de estabilidade</span>
                     </div>
                 </div>
                 
@@ -96,9 +113,9 @@
                     <h3 class="service-title">Substituição HD por SSD</h3>
                     <p class="service-description">Transforme seu PC lento em uma máquina super rápida com nosso upgrade para SSD!</p>
                     <div class="service-features">
-                        <span class="feature">✓ Até 10x mais rápido</span>
-                        <span class="feature">✓ Clonagem de dados</span>
-                        <span class="feature">✓ SSDs de alta qualidade</span>
+                        <span class="feature">Até 10x mais rápido</span>
+                        <span class="feature">Clonagem de dados</span>
+                        <span class="feature">SSDs de alta qualidade</span>
                     </div>
                     <div class="service-badge">Mais Popular</div>
                 </div>
@@ -108,9 +125,9 @@
                     <h3 class="service-title">Outros Serviços</h3>
                     <p class="service-description">Consulte-nos para outros tipos de manutenção e reparo em seus equipamentos.</p>
                     <div class="service-features">
-                        <span class="feature">✓ Limpeza interna</span>
-                        <span class="feature">✓ Troca de tela</span>
-                        <span class="feature">✓ Reparo de fonte</span>
+                        <span class="feature">Limpeza interna</span>
+                        <span class="feature">Troca de tela</span>
+                        <span class="feature">Reparo de fonte</span>
                     </div>
                 </div>
             </div>
@@ -167,18 +184,14 @@
             </div>
             <div class="quote-content">
                 <form id="quoteForm" class="quote-form-container">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Nome Completo *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
+                    <div class="form-group">
+                        <label for="name">Nome Completo *</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">Cidade</label>
-                            <input type="text" id="city" name="city">
-                        </div>
+                    <div class="form-group">
+                        <label for="city">Cidade</label>
+                        <input type="text" id="city" name="city">
                     </div>
 
                     <div class="form-group">
@@ -198,71 +211,61 @@
                     </div>
 
                     <div class="form-group">
-    <label for="services">Serviços Desejados *</label>
-    <div class="checkbox-group">
-        <label class="checkbox-item">
-            <input type="checkbox" name="services" value="formatacao">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Formatação</span>
-        </label>
-        <label class="checkbox-item">
-            <input type="checkbox" name="services" value="teclado">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Troca de Teclado</span>
-        </label>
-        <label class="checkbox-item">
-            <input type="checkbox" name="services" value="memoria">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Upgrade de Memória RAM</span>
-        </label>
-        <label class="checkbox-item">
-            <input type="checkbox" name="services" value="ssd">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Substituição HD por SSD</span>
-        </label>
-        <label class="checkbox-item">
-            <input type="checkbox" name="services" value="limpeza">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Limpeza Interna</span>
-        </label>
-        <label class="checkbox-item">
-            <input type="checkbox" name="services" value="outros">
-            <span class="checkmark"></span>
-            <span class="checkbox-text">Outros Serviços</span>
-        </label>
-    </div>
-</div>
+                        <label for="services">Serviços Desejados *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="formatacao">
+                                <span class="checkmark"><span class="checkbox-text">Formatação</span></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="teclado">
+                                <span class="checkmark"><span class="checkbox-text">Troca de Teclado</span></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="memoria">
+                                <span class="checkmark"><span class="checkbox-text">Upgrade de Memória RAM</span></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="ssd">
+                                <span class="checkmark"><span class="checkbox-text">Substituição HD por SSD</span></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="limpeza">
+                                <span class="checkmark"><span class="checkbox-text">Limpeza Interna</span></span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="outros">
+                                <span class="checkmark"><span class="checkbox-text">Outros Serviços</span></span>
+                            </label>
+                        </div>
+                    </div>
 
-<div class="form-group">
-    <label for="problem">Descreva o Problema ou Necessidade</label>
-    <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
-</div>
-    <div class="form-group">
-    <label for="urgency">Urgência</label>
-    <div class="select-wrapper">
-        <select id="urgency" name="urgency" class="form-select">
-            <option value="normal">Normal (até 7 dias)</option>
-            <option value="urgente">Urgente (até 3 dias)</option>
-            <option value="muito-urgente">Muito Urgente (até 24h)</option>
-        </select>
-    </div>
-</div>
-    </select>
-<div class="form-actions">
-    <div class="form-actions">
-    <div class="btn-container">
-        <button type="submit" class="btn btn-primary">
-            📋 Solicitar Orçamento
-        </button>
-    </div>
-    <p class="form-note">* Campos obrigatórios</p>
-</div>
-</form>
-<div id="successMessage" class="success-message" style="display: none;">
-    <div class="success-content">
-        <div class="success-icon">✅</div>
+                    <div class="form-group">
+                        <label for="problem">Descreva o Problema ou Necessidade</label>
+                        <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="urgency">Urgência</label>
+                        <select id="urgency" name="urgency">
+                            <option value="normal">Normal (até 7 dias)</option>
+                            <option value="urgente">Urgente (até 3 dias)</option>
+                            <option value="muito-urgente">Muito Urgente (até 24h)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            📋 Solicitar Orçamento
+                        </button>
+                        <p class="form-note">* Campos obrigatórios</p>
+                    </div>
+                </form>
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <div class="success-content">
+                        <div class="success-icon">✅</div>
                         <h3>Orçamento Enviado com Sucesso!</h3>
-                        <p>Recebemos sua solicitação e entraremos em contato em breve pelo WhatsApp ou telefone informado.</p>
+                        <p>Recebemos sua solicitação e em breve você será redirecionado para o WhatsApp.</p>
                     </div>
                 </div>
             </div>
@@ -296,7 +299,8 @@
                         <div class="contact-icon">🕒</div>
                         <div class="contact-details">
                             <h3>Horário de Atendimento</h3>
-                            <p>Segunda a Sexta: 8h às 18h<br>Sábado: 8h às 12h</p>
+                            <p>Segunda a Sexta: 8h às 18h  
+Sábado: 8h às 12h</p>
                         </div>
                     </div>
                 </div>
@@ -313,8 +317,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <span class="logo-icon">👩‍💻</span>
-                    <span class="logo-text">DMTECH</span>
+                    DMTECH
                 </div>
                 <p class="footer-text">Manutenção profissional em notebooks e computadores com qualidade e garantia.</p>
             </div>
