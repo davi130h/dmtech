@@ -169,85 +169,53 @@
             </div>
             <div class="quote-content">
                 <form id="quoteForm" class="quote-form-container">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Nome Completo *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="city">Cidade</label>
-                            <input type="text" id="city" name="city">
-                        </div>
-                    </div>
+    <div class="form-group">
+        <label for="name">Nome Completo *</label>
+        <input type="text" id="name" name="name" required>
+    </div>
 
-                    <div class="form-group">
-                        <label for="device">Tipo de Equipamento *</label>
-                        <select id="device" name="device" required>
-                            <option value="">Selecione o tipo de equipamento</option>
-                            <option value="notebook">Notebook</option>
-                            <option value="desktop">Computador Desktop</option>
-                            <option value="all-in-one">All-in-One</option>
-                            <option value="outros">Outros</option>
-                        </select>
-                    </div>
+    <div class="form-group">
+        <label for="city">Cidade *</label>
+        <input type="text" id="city" name="city" required>
+    </div>
 
-                    <div class="form-group">
-                        <label for="brand">Marca e Modelo</label>
-                        <input type="text" id="brand" name="brand" placeholder="Ex: Dell Inspiron 15, HP Pavilion, etc.">
-                    </div>
+    <div class="form-group">
+        <label for="device">Equipamento *</label>
+        <input type="text" id="device" name="device" required>
+    </div>
 
-                    <div class="form-group">
-                        <label for="services">Serviços Desejados *</label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="formatacao">
-                                <span class="checkmark"></span>
-                                Formatação
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="teclado">
-                                <span class="checkmark"></span>
-                                Troca de Teclado
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="memoria">
-                                <span class="checkmark"></span>
-                                Upgrade de Memória RAM
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="ssd">
-                                <span class="checkmark"></span>
-                                Substituição HD por SSD
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="limpeza">
-                                <span class="checkmark"></span>
-                                Limpeza Interna
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="outros">
-                                <span class="checkmark"></span>
-                                Outros Serviços
-                            </label>
-                        </div>
-                    </div>
+    <div class="form-group">
+        <label for="brand">Marca / Modelo *</label>
+        <input type="text" id="brand" name="brand" required>
+    </div>
 
-                    <div class="form-group">
-                        <label for="problem">Descreva o Problema ou Necessidade</label>
-                        <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
-                    </div>
+    <div class="form-group">
+        <label>Selecione os serviços desejados *</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="services" value="Formatar"> Formatar</label>
+            <label><input type="checkbox" name="services" value="Limpeza"> Limpeza</label>
+            <label><input type="checkbox" name="services" value="Backup"> Backup</label>
+            <label><input type="checkbox" name="services" value="Troca de HD"> Troca de HD</label>
+            <label><input type="checkbox" name="services" value="Troca de Tela"> Troca de Tela</label>
+            <label><input type="checkbox" name="services" value="Outros"> Outros</label>
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        <label for="urgency">Urgência</label>
-                        <select id="urgency" name="urgency">
-                            <option value="normal">Normal (até 7 dias)</option>
-                            <option value="urgente">Urgente (até 3 dias)</option>
-                            <option value="muito-urgente">Muito Urgente (até 24h)</option>
-                        </select>
-                    </div>
+    <div class="form-group">
+        <label for="urgency">Qual a urgência? *</label>
+        <select id="urgency" name="urgency" required>
+            <option value="">Selecione</option>
+            <option value="Pode esperar">Pode esperar</option>
+            <option value="Com urgência">Com urgência</option>
+            <option value="Quero para hoje">Quero para hoje</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="problem">Descreva o problema *</label>
+        <textarea id="problem" name="problem" rows="4" required></textarea>
+    </div>
+
     <div class="form-actions">
         <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
             📋 Solicitar Orçamento
@@ -255,15 +223,6 @@
         <p class="form-note">* Campos obrigatórios</p>
     </div>
 </form>
-
-<!-- Mensagem de sucesso (opcional) -->
-<div id="successMessage" class="success-message" style="display: none;">
-    <div class="success-content">
-        <div class="success-icon">✅</div>
-        <h3>Orçamento Enviado com Sucesso!</h3>
-        <p>Recebemos sua solicitação e entraremos em contato em breve pelo WhatsApp ou telefone informado.</p>
-    </div>
-</div>
 
 <script>
 function enviarParaWhatsApp() {
@@ -274,16 +233,12 @@ function enviarParaWhatsApp() {
     const problema = document.getElementById('problem').value;
     const urgencia = document.getElementById('urgency').value;
 
-    // Coletar os serviços selecionados
     const checkboxes = document.querySelectorAll('input[name="services"]:checked');
     const servicos = Array.from(checkboxes).map(cb => cb.parentNode.innerText.trim()).join(', ');
 
     const mensagem = `*Orçamento solicitado via site:*\n\n*Nome:* ${nome}\n*Cidade:* ${cidade}\n*Equipamento:* ${equipamento}\n*Marca/Modelo:* ${marca}\n*Serviços:* ${servicos}\n*Urgência:* ${urgencia}\n*Descrição:* ${problema}`;
 
     const url = `https://wa.me/5575998587081?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-}
-    
     window.open(url, '_blank');
 }
 </script>
