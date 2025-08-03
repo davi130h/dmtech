@@ -73,43 +73,49 @@ body {
     text-decoration: none;
 }
 
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-}
-
-.nav-link {
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 500;
-    transition: var(--transition);
-    position: relative;
-    padding: 0.5rem 0;
-}
-
-.nav-link:hover,
-.nav-link:focus {
-    color: var(--secondary-color);
-    outline: none;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--secondary-color);
-    transition: var(--transition);
-}
-
-.nav-link:hover::after,
-.nav-link:focus::after {
+@media (max-width: 768px) {
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
     width: 100%;
+    height: calc(100vh - 70px);
+    background: #ffffff;
+    flex-direction: column;
+    padding: 1.5rem; /* Reduzi o padding */
+    transition: transform 0.4s ease-out;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    overflow-y: auto;
+  }
+
+  .nav-menu.active {
+    transform: translateX(100%);
+  }
+
+  .nav-menu li {
+    margin: 0.8rem 0; /* Reduzi o espaçamento vertical */
+    padding: 0.5rem 0; /* Adicionei padding interno */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Linha sutil entre itens */
+    transition: all 0.3s ease;
+  }
+
+  .nav-menu li:last-child {
+    border-bottom: none; /* Remove borda do último item */
+  }
+
+  .nav-link {
+    padding: 0.5rem 1rem; /* Ajuste no padding do link */
+    display: block;
+    width: 100%;
+    font-size: 1.1rem; /* Tamanho de fonte mantido */
+  }
+
+  .nav-link:hover {
+    color: #3b82f6;
+    background-color: rgba(59, 130, 246, 0.05); /* Fundo sutil ao hover */
+    border-radius: 6px;
+  }
 }
 
 /* Menu Hamburguer */
