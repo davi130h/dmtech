@@ -249,35 +249,41 @@
                         </select>
                     </div>
 
-                    <div class="form-actions">
-                        <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
-                        <a href="https://wa.me/5575998587081?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento." target="_blank" class="btn btn-primary">
-                            📋 Solicitar Orçamento
-                        </button>
-                        <p class="form-note">* Campos obrigatórios</p>
-                    </div>
-                </form>
-                <form id="quoteForm">
+                    <form id="quoteForm">
+
+    <div class="form-actions">
+        <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
+            📋 Solicitar Orçamento
+        </button>
+        <p class="form-note">* Campos obrigatórios</p>
+    </div>
+</form>
+
+<!-- Mensagem de sucesso (opcional) -->
+<div id="successMessage" class="success-message" style="display: none;">
+    <div class="success-content">
+        <div class="success-icon">✅</div>
+        <h3>Orçamento Enviado com Sucesso!</h3>
+        <p>Recebemos sua solicitação e entraremos em contato em breve pelo WhatsApp ou telefone informado.</p>
+    </div>
+</div>
+
 <script>
 function enviarParaWhatsApp() {
     const form = document.getElementById('quoteForm');
     const formData = new FormData(form);
     
-    // Pegue os campos que você deseja
     const nome = formData.get('nome') || '';
     const email = formData.get('email') || '';
     const mensagem = formData.get('mensagem') || '';
-    
-    const texto = `Olá! Gostaria de solicitar um orçamento.
-*Nome:* ${nome}
-*Email:* ${email}
-*Mensagem:* ${mensagem}`;
-    
+
+    const texto = `Olá! Gostaria de solicitar um orçamento.\n*Nome:* ${nome}\n*Email:* ${email}\n*Mensagem:* ${mensagem}`;
+
     const url = `https://wa.me/5575998587081?text=${encodeURIComponent(texto)}`;
     
     window.open(url, '_blank');
 }
-
+</script>
                 <div id="successMessage" class="success-message" style="display: none;">
                     <div class="success-content">
                         <div class="success-icon">✅</div>
