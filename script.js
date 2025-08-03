@@ -8,47 +8,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const quoteForm = document.getElementById("quoteForm");
     const successMessage = document.getElementById("successMessage");
 
-    // --- SEÇÃO DE MENU E NAVEGAÇÃO (CORRIGIDA) ---
-
-    // Função para abrir/fechar o menu mobile
+    // --- SEÇÃO DE MENU E NAVEGAÇÃO ---
     const toggleMenu = () => {
+        const isOpen = navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        // Impede a rolagem do corpo da página quando o menu está aberto
-        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        document.body.style.overflow = isOpen ? 'hidden' : '';
     };
 
-    // 1. Evento de clique no ícone de hamburguer
     hamburger.addEventListener('click', (event) => {
-        event.stopPropagation(); // Impede que o clique se propague para outros elementos
+        event.stopPropagation();
         toggleMenu();
     });
 
-    // 2. Evento de clique nos links do menu para rolagem suave
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
-            // Verifica se o link é uma âncora para a mesma página
             if (this.hash !== "") {
-                event.preventDefault(); // Impede o comportamento padrão do link
-
+                event.preventDefault();
                 const targetId = this.hash;
                 const targetSection = document.querySelector(targetId);
-
                 if (targetSection) {
-                    // Calcula a posição correta, descontando a altura do header
                     const headerOffset = header.offsetHeight;
                     const elementPosition = targetSection.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    // Rola suavemente para a seção
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
                 }
             }
-
-            // 3. Fecha o menu se estiver aberto (apenas em modo mobile)
             if (navMenu.classList.contains('active')) {
                 toggleMenu();
             }
@@ -56,8 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- SEÇÃO DE EFEITOS DE SCROLL E ANIMAÇÕES ---
-
-    // Efeito de sombra e ocultação do header ao rolar a página
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY;
@@ -75,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScroll = currentScroll;
     });
 
-    // Animação de elementos ao aparecerem na tela
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -91,15 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- SEÇÃO DO FORMULÁRIO DE ORÇAMENTO ---
-
-    // Função principal que lida com o envio do formulário
     function handleQuoteForm(event) {
         event.preventDefault();
-
         const formData = new FormData(this);
         const data = {
             name: formData.get('name')?.trim(),
-            city: formData.get('city')?.trim(),
+            // LINHA 'city' REMOVIDA DAQUI
             device: formData.get('device'),
             brand: formData.get('brand')?.trim(),
             services: formData.getAll('services'),
@@ -110,16 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!validateForm(data)) {
             return;
         }
-
         sendToWhatsApp(data);
         showSuccessMessage();
         this.reset();
     }
 
-    // Função para validar os campos do formulário
     function validateForm(data) {
         if (!data.name) {
-            alert("Por favor, preencha o campo 'Nome Completo'.");
+            alert("Por favor, preencha o campo 'Nome'.");
             return false;
         }
         if (!data.device) {
@@ -133,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
-    // Função para montar a mensagem e redirecionar para o WhatsApp
     function sendToWhatsApp(data) {
         const serviceNames = {
             formatacao: "Formatação",
@@ -150,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageParts = [
             `Olá! Gostaria de solicitar um orçamento.\n`,
             `*Nome:* ${data.name}`,
-            data.city && `*Cidade:* ${data.city}`,
+            // LINHA 'city' REMOVIDA DAQUI
             `*Equipamento:* ${deviceText}`,
             data.brand && `*Marca/Modelo:* ${data.brand}`,
             `\n*Serviços Desejados:*`,
@@ -162,11 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const whatsappNumber = '5575998587081';
         const encodedMessage = encodeURIComponent(messageParts.filter(Boolean).join('\n'));
         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
         window.open(whatsappURL, "_blank" );
     }
 
-    // Função para mostrar a mensagem de sucesso na tela
     function showSuccessMessage() {
         if (quoteForm && successMessage) {
             quoteForm.style.display = 'none';
@@ -174,7 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Adiciona o "ouvinte" de evento ao formulário, se ele existir na página
     if (quoteForm) {
         quoteForm.addEventListener("submit", handleQuoteForm);
     }
