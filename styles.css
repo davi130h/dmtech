@@ -101,20 +101,63 @@ body {
     width: 100%;
 }
 
+/* Estilos para o menu mobile */
 .hamburger {
     display: none;
-    flex-direction: column;
     cursor: pointer;
-    gap: 4px;
+    padding: 10px;
 }
 
 .hamburger span {
+    display: block;
     width: 25px;
     height: 3px;
-    background: var(--text-dark);
+    background-color: #333;
+    margin: 4px 0;
     transition: all 0.3s ease;
 }
 
+.nav-menu {
+    display: flex;
+    list-style: none;
+}
+
+.nav-menu.active {
+    display: flex;
+}
+/* Responsividade - quando a tela for menor que 768px */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .nav-menu li {
+        margin: 10px 0;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+}
 /* Hero Section */
 .hero {
     min-height: 100vh;
