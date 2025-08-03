@@ -1,26 +1,20 @@
-// Mobile Menu Functionality
+// Mobile Menu Functionality - Versão Corrigida
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    // Toggle mobile menu
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
+    // Toggle mobile menu - Corrigido
+    hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
         navMenu.classList.toggle('active');
-        
-        // Disable scroll when menu is open
-        if (navMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
     // Close menu when clicking on links (mobile)
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
-            // Only prevent default if it's an anchor link
             if (this.getAttribute('href').startsWith('#')) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
@@ -34,14 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            // Close menu
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
             document.body.style.overflow = '';
         });
     });
 
-    // Close menu when clicking outside
+    // Close menu when clicking outside - Corrigido
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-container') && navMenu.classList.contains('active')) {
             hamburger.classList.remove('active');
@@ -78,8 +71,8 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe service cards and feature items
-document.addEventListener('DOMContentLoaded', () => {
+// Observe elements
+function setupAnimations() {
     const animatedElements = document.querySelectorAll('.service-card, .feature-item, .contact-item');
     
     animatedElements.forEach(el => {
@@ -88,115 +81,115 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-});
+}
 
-// Add hover effects to service cards
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px) scale(1.02)';
+// Service card hover effects
+function setupServiceCards() {
+    document.querySelectorAll('.service-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = card.classList.contains('featured') 
+                ? 'translateY(-10px) scale(1.07)'
+                : 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = card.classList.contains('featured') 
+                ? 'scale(1.05)'
+                : 'translateY(0) scale(1)';
+        });
     });
-    
-    card.addEventListener('mouseleave', () => {
-        if (card.classList.contains('featured')) {
-            card.style.transform = 'scale(1.05)';
-        } else {
-            card.style.transform = 'translateY(0) scale(1)';
-        }
-    });
-});
+}
 
-// WhatsApp button click tracking
-document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
-    link.addEventListener('click', () => {
-        // You can add analytics tracking here if needed
-        console.log('WhatsApp link clicked');
+// Tracking functions
+function setupTracking() {
+    document.querySelectorAll('a[href*="wa.me"]').forEach(link => {
+        link.addEventListener('click', () => {
+            console.log('WhatsApp link clicked');
+        });
     });
-});
 
-// Phone number click tracking
-document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-    link.addEventListener('click', () => {
-        // You can add analytics tracking here if needed
-        console.log('Phone number clicked');
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', () => {
+            console.log('Phone number clicked');
+        });
     });
-});
+}
 
-// Add loading animation for banner image
-window.addEventListener('load', () => {
+// Banner image loader
+function loadBannerImage() {
     const bannerImage = document.querySelector('.banner-image');
     if (bannerImage) {
         bannerImage.style.opacity = '1';
     }
-});
+}
 
-// Quote form handling
-document.addEventListener("DOMContentLoaded", () => {
+// Quote form handling - Versão Melhorada
+function setupQuoteForm() {
     const quoteForm = document.getElementById("quoteForm");
+    if (!quoteForm) return;
+
     const successMessage = document.getElementById("successMessage");
     
-    if (quoteForm) {
-        quoteForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(quoteForm);
-            const data = {};
-            
-            // Convert form data to object
-            for (let [key, value] of formData.entries()) {
-                if (key === "services") {
-                    if (!data.services) data.services = [];
-                    data.services.push(value);
-                } else {
-                    data[key] = value;
-                }
-            }
-            
-            // Validate required fields
-            const requiredFields = ["name", "device"];
-            const missingFields = requiredFields.filter(field => !data[field]);
-            
-            if (missingFields.length > 0) {
-                alert("Por favor, preencha todos os campos obrigatórios: " + missingFields.join(", ").replace("name", "Nome").replace("device", "Tipo de Equipamento") + ".");
-                return;
-            }
-            
-            if (!data.services || data.services.length === 0) {
-                alert("Por favor, selecione pelo menos um serviço.");
-                return;
-            }
-            
-            // Construct WhatsApp message
-            let message = `*Novo Orçamento - TechRepair*\n\n`;
-            message += `*Dados do Cliente:*\n`;
-            message += `Nome: ${data.name}\n`;
-            if (data.city) message += `Cidade: ${data.city}\n`;
-            message += `\n*Detalhes do Equipamento:*\n`;
-            message += `Tipo: ${data.device}\n`;
-            if (data.brand) message += `Marca/Modelo: ${data.brand}\n`;
-            message += `\n*Serviços Desejados:*\n`;
-            data.services.forEach(service => {
-                message += `- ${service.charAt(0).toUpperCase() + service.slice(1)}\n`;
-            });
-            if (data.problem) message += `\n*Problema/Necessidade:*\n${data.problem}\n`;
-            message += `\n*Urgência:* ${data.urgency.charAt(0).toUpperCase() + data.urgency.slice(1)}\n`;
-            
-            // Replace with your WhatsApp number
-            const whatsappNumber = "5575998587081"; // Seu número de WhatsApp aqui
-            const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
-            
-            // Redirect to WhatsApp
-            window.open(whatsappURL, "_blank");
-            
-            // Show success message (optional, as user is redirected)
-            quoteForm.style.display = "none";
-            successMessage.style.display = "block";
-            quoteForm.reset();
-            
-            setTimeout(() => {
-                successMessage.style.display = "none";
-                quoteForm.style.display = "block";
-            }, 5000); // Hide after 5 seconds
-        });
-    }
+    quoteForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(quoteForm);
+        const data = Object.fromEntries(formData.entries());
+        data.services = formData.getAll("services");
+
+        // Validação
+        const requiredFields = ["name", "device"];
+        const missingFields = requiredFields.filter(field => !data[field]);
+        
+        if (missingFields.length > 0) {
+            alert(`Por favor, preencha: ${missingFields
+                .map(f => f === "name" ? "Nome" : "Tipo de Equipamento")
+                .join(", ")}`);
+            return;
+        }
+        
+        if (!data.services || data.services.length === 0) {
+            alert("Selecione pelo menos um serviço.");
+            return;
+        }
+
+        // Format message
+        const messageParts = [
+            `*Novo Orçamento - TechRepair*`,
+            `\n*Dados do Cliente:*`,
+            `Nome: ${data.name}`,
+            data.city && `Cidade: ${data.city}`,
+            `\n*Detalhes do Equipamento:*`,
+            `Tipo: ${data.device}`,
+            data.brand && `Marca/Modelo: ${data.brand}`,
+            `\n*Serviços Desejados:*`,
+            ...data.services.map(s => `- ${s.charAt(0).toUpperCase() + s.slice(1)}`),
+            data.problem && `\n*Problema/Necessidade:*\n${data.problem}`,
+            `\n*Urgência:* ${data.urgency.charAt(0).toUpperCase() + data.urgency.slice(1)}`
+        ];
+
+        const whatsappURL = `https://wa.me/5575998587081?text=${
+            encodeURIComponent(messageParts.filter(Boolean).join('\n'))
+        }`;
+
+        window.open(whatsappURL, "_blank");
+        quoteForm.reset();
+        
+        // Feedback visual
+        quoteForm.style.display = "none";
+        successMessage.style.display = "block";
+        setTimeout(() => {
+            successMessage.style.display = "none";
+            quoteForm.style.display = "block";
+        }, 5000);
+    });
+}
+
+// Initialize all functions
+document.addEventListener('DOMContentLoaded', () => {
+    setupAnimations();
+    setupServiceCards();
+    setupTracking();
+    loadBannerImage();
+    setupQuoteForm();
 });
