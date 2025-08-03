@@ -248,9 +248,6 @@
                             <option value="muito-urgente">Muito Urgente (até 24h)</option>
                         </select>
                     </div>
-
-                    <form id="quoteForm">
-
     <div class="form-actions">
         <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
             📋 Solicitar Orçamento
@@ -270,16 +267,22 @@
 
 <script>
 function enviarParaWhatsApp() {
-    const form = document.getElementById('quoteForm');
-    const formData = new FormData(form);
-    
-    const nome = formData.get('nome') || '';
-    const email = formData.get('email') || '';
-    const mensagem = formData.get('mensagem') || '';
+    const nome = document.getElementById('name').value;
+    const cidade = document.getElementById('city').value;
+    const equipamento = document.getElementById('device').value;
+    const marca = document.getElementById('brand').value;
+    const problema = document.getElementById('problem').value;
+    const urgencia = document.getElementById('urgency').value;
 
-    const texto = `Olá! Gostaria de solicitar um orçamento.\n*Nome:* ${nome}\n*Email:* ${email}\n*Mensagem:* ${mensagem}`;
+    // Coletar os serviços selecionados
+    const checkboxes = document.querySelectorAll('input[name="services"]:checked');
+    const servicos = Array.from(checkboxes).map(cb => cb.parentNode.innerText.trim()).join(', ');
 
-    const url = `https://wa.me/5575998587081?text=${encodeURIComponent(texto)}`;
+    const mensagem = `*Orçamento solicitado via site:*\n\n*Nome:* ${nome}\n*Cidade:* ${cidade}\n*Equipamento:* ${equipamento}\n*Marca/Modelo:* ${marca}\n*Serviços:* ${servicos}\n*Urgência:* ${urgencia}\n*Descrição:* ${problema}`;
+
+    const url = `https://wa.me/5575998587081?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
+}
     
     window.open(url, '_blank');
 }
