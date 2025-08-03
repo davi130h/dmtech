@@ -164,7 +164,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 60px 0;
+    padding: 80px 0;
     background-color: #f8fafc;
 }
 
@@ -172,18 +172,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 40px;
+    gap: 60px;
 }
 
 /* Desktop - Imagem à direita */
 .hero-text {
     flex: 1;
     order: 1; /* Texto primeiro no desktop */
-    min-width: 50%; /* Garante que o texto não fique muito espremido */
+    min-width: 40%; /* Garante que o texto não fique muito espremido */
 }
 
 .hero-banner {
-    flex: 0 0 45%; /* Não cresce, não encolhe, largura base de 45% */
+    flex: 0 0 50%; /* Não cresce, não encolhe, largura base de 45% */
     text-align: right;
     order: 2; /* Imagem depois no desktop */
 }
@@ -191,9 +191,9 @@ body {
 .hero-banner img {
     max-width: 100%;
     height: auto;
-    max-height: 400px; /* Altura máxima controlada */
+    max-height: 550px; /* Altura máxima controlada */
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 119, 204, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 119, 204, 0.15);
     object-fit: contain; /* Mantém proporções sem distorcer */
 }
 
@@ -201,7 +201,7 @@ body {
 @media (max-width: 768px) {
     .hero-content {
         flex-direction: column;
-        gap: 20px;
+        gap: 30px;
     }
     
     .hero-text {
