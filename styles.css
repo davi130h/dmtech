@@ -1,5 +1,5 @@
 /* ==========================================================================
-   DESIGN FINAL - DMTECH 2025 (v4 - Hero Simples )
+   DESIGN FINAL - DMTECH 2025 (v5 - Banner com borda arredondada)
    ========================================================================== */
 
 /* 1. CONFIGURAÇÕES GLOBAIS E PALETA DE CORES */
@@ -66,7 +66,7 @@ body {
     .nav-link::after { display: none; }
 }
 
-/* 3. SEÇÃO HERO (LAYOUT CORRIGIDO) */
+/* 3. SEÇÃO HERO */
 .hero {
     padding: 60px 0;
     background-color: var(--bg-white);
@@ -87,7 +87,7 @@ body {
     border-radius: 24px;
     overflow: hidden;
     box-shadow: var(--shadow-xl);
-    line-height: 0; /* Remove espaço extra em volta da imagem */
+    line-height: 0;
 }
 
 .hero-banner-image {
@@ -95,6 +95,7 @@ body {
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 24px; /* LINHA CORRIGIDA */
 }
 
 .hero-text-column {
@@ -183,4 +184,24 @@ body {
 .checkbox-item:hover .checkmark { background-color: #e5e7eb; }
 .checkmark::before { content: 'X'; font-weight: 600; font-size: 0.75rem; color: #9ca3af; background-color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
 .checkbox-item input:checked ~ .checkmark { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
-.checkbox-item input:
+.checkbox-item input:checked ~ .checkmark::before { content: '✓'; color: var(--primary-blue); transform: rotate(360deg); }
+.checkbox-text { font-size: 0.95rem; }
+.form-actions { margin-top: 2.5rem; text-align: left; }
+.form-actions .btn { width: 100%; padding: 16px; }
+.form-note { margin-top: 1rem; font-size: 0.875rem; color: var(--text-light); }
+.success-message { text-align: center; padding: 40px; }
+.success-icon { font-size: 3rem; color: var(--success-color); margin-bottom: 1.5rem; }
+.success-message h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-dark); }
+.success-message p { color: var(--text-light); }
+
+/* 8. OUTRAS SEÇÕES E FOOTER */
+.about, .contact { padding: 80px 0; }
+.footer { background-color: var(--text-dark); color: white; padding: 60px 0 30px; }
+.footer-content { text-align: center; }
+.footer-logo { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+.footer-text { max-width: 600px; margin: 0 auto 2rem; opacity: 0.8; }
+.footer-bottom { padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; opacity: 0.6; }
+
+/* Animações de Entrada */
+.will-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.will-animate.animate { opacity: 1; transform: translateY(0); }
