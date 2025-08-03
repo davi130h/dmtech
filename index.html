@@ -34,11 +34,10 @@
     </header>
 
     <!-- Hero Section -->
-
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-banner">
-                    <img src="banner.png" alt="Manutenção em Notebooks e Computadores" class="banner">
+                <img src="banner.png" alt="Manutenção em Notebooks e Computadores" class="banner">
             </div>
             <div class="hero-text">
                 <h1 class="hero-title">Manutenção Profissional em <span class="highlight">Notebooks e Computadores</span></h1>
@@ -159,133 +158,132 @@
             </div>
         </div>
     </section>
+
     <!-- Quote Form Section -->
     <section id="quote" class="quote-form">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Solicite seu Orçamento</h2>
-      <p class="section-subtitle">Preencha o formulário abaixo e receba um orçamento personalizado</p>
-    </div>
-    <div class="quote-content">
-      <form id="quoteForm" class="quote-form-container">
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Nome Completo *</label>
-            <input type="text" id="name" name="name" required>
-          </div>
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Solicite seu Orçamento</h2>
+                <p class="section-subtitle">Preencha o formulário abaixo e receba um orçamento personalizado</p>
+            </div>
+            <div class="quote-content">
+                <form id="quoteForm" class="quote-form-container">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nome Completo *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">Cidade</label>
+                            <input type="text" id="city" name="city">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="device">Tipo de Equipamento *</label>
+                        <select id="device" name="device" required>
+                            <option value="">Selecione o tipo de equipamento</option>
+                            <option value="notebook">Notebook</option>
+                            <option value="desktop">Computador Desktop</option>
+                            <option value="all-in-one">All-in-One</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brand">Marca e Modelo</label>
+                        <input type="text" id="brand" name="brand" placeholder="Ex: Dell Inspiron 15, HP Pavilion, etc.">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Serviços Desejados *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <span>Formatar</span>
+                                <input type="checkbox" name="services" value="formatar">
+                            </label>
+
+                            <label class="checkbox-item">
+                                <span>Limpeza</span>
+                                <input type="checkbox" name="services" value="limpeza">
+                            </label>
+
+                            <label class="checkbox-item">
+                                <span>Backup</span>
+                                <input type="checkbox" name="services" value="backup">
+                            </label>
+
+                            <label class="checkbox-item">
+                                <span>Troca de HD</span>
+                                <input type="checkbox" name="services" value="troca_hd">
+                            </label>
+
+                            <label class="checkbox-item">
+                                <span>Troca de Tela</span>
+                                <input type="checkbox" name="services" value="troca_tela">
+                            </label>
+
+                            <label class="checkbox-item">
+                                <span>Outros</span>
+                                <input type="checkbox" name="services" value="outros">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="problem">Descreva o Problema ou Necessidade</label>
+                        <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="urgency">Urgência</label>
+                        <select id="urgency" name="urgency">
+                            <option value="normal">Normal (até 7 dias)</option>
+                            <option value="urgente">Urgente (até 3 dias)</option>
+                            <option value="muito-urgente">Muito Urgente (até 24h)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
+                            📋 Solicitar Orçamento
+                        </button>
+                        <p class="form-note">* Campos obrigatórios</p>
+                    </div>
+                </form>
+
+                <!-- Mensagem de sucesso (opcional) -->
+                <div id="successMessage" class="success-message" style="display: none;">
+                    <div class="success-content">
+                        <div class="success-icon">✅</div>
+                        <h3>Orçamento Enviado com Sucesso!</h3>
+                        <p>Recebemos sua solicitação e entraremos em contato em breve pelo WhatsApp ou telefone informado.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="form-row">
-          <div class="form-group">
-            <label for="city">Cidade</label>
-            <input type="text" id="city" name="city">
-          </div>
-        </div>
 
-        <div class="form-group">
-          <label for="device">Tipo de Equipamento *</label>
-          <select id="device" name="device" required>
-            <option value="">Selecione o tipo de equipamento</option>
-            <option value="notebook">Notebook</option>
-            <option value="desktop">Computador Desktop</option>
-            <option value="all-in-one">All-in-One</option>
-            <option value="outros">Outros</option>
-          </select>
-        </div>
+        <script>
+            function enviarParaWhatsApp() {
+                const form = document.getElementById('quoteForm');
+                const formData = new FormData(form);
 
-        <div class="form-group">
-          <label for="brand">Marca e Modelo</label>
-          <input type="text" id="brand" name="brand" placeholder="Ex: Dell Inspiron 15, HP Pavilion, etc.">
-        </div>
+                const nome = formData.get('name') || '';
+                const cidade = formData.get('city') || '';
+                const equipamento = formData.get('device') || '';
+                const marcaModelo = formData.get('brand') || '';
 
-        <div class="form-group">
-          <label>Serviços Desejados *</label>
-          <div class="checkbox-group">
+                // Coletar os serviços selecionados (checkboxes)
+                const services = formData.getAll('services');
+                const servicosTexto = services.length > 0 ? services.join(', ') : 'Nenhum';
 
-            <label class="checkbox-item">
-              <span>Formatar</span>
-              <input type="checkbox" name="services" value="formatar">
-            </label>
+                const problema = formData.get('problem') || '';
+                const urgencia = formData.get('urgency') || '';
 
-            <label class="checkbox-item">
-              <span>Limpeza</span>
-              <input type="checkbox" name="services" value="limpeza">
-            </label>
-
-            <label class="checkbox-item">
-              <span>Backup</span>
-              <input type="checkbox" name="services" value="backup">
-            </label>
-
-            <label class="checkbox-item">
-              <span>Troca de HD</span>
-              <input type="checkbox" name="services" value="troca_hd">
-            </label>
-
-            <label class="checkbox-item">
-              <span>Troca de Tela</span>
-              <input type="checkbox" name="services" value="troca_tela">
-            </label>
-
-            <label class="checkbox-item">
-              <span>Outros</span>
-              <input type="checkbox" name="services" value="outros">
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="problem">Descreva o Problema ou Necessidade</label>
-          <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
-        </div>
-
-        <div class="form-group">
-          <label for="urgency">Urgência</label>
-          <select id="urgency" name="urgency">
-            <option value="normal">Normal (até 7 dias)</option>
-            <option value="urgente">Urgente (até 3 dias)</option>
-            <option value="muito-urgente">Muito Urgente (até 24h)</option>
-          </select>
-        </div>
-
-        <div class="form-actions">
-          <button type="button" class="btn btn-primary" onclick="enviarParaWhatsApp()">
-            📋 Solicitar Orçamento
-          </button>
-          <p class="form-note">* Campos obrigatórios</p>
-        </div>
-      </form>
-
-      <!-- Mensagem de sucesso (opcional) -->
-      <div id="successMessage" class="success-message" style="display: none;">
-        <div class="success-content">
-          <div class="success-icon">✅</div>
-          <h3>Orçamento Enviado com Sucesso!</h3>
-          <p>Recebemos sua solicitação e entraremos em contato em breve pelo WhatsApp ou telefone informado.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function enviarParaWhatsApp() {
-      const form = document.getElementById('quoteForm');
-      const formData = new FormData(form);
-
-      const nome = formData.get('name') || '';
-      const cidade = formData.get('city') || '';
-      const equipamento = formData.get('device') || '';
-      const marcaModelo = formData.get('brand') || '';
-
-      // Coletar os serviços selecionados (checkboxes)
-      const services = formData.getAll('services');
-      const servicosTexto = services.length > 0 ? services.join(', ') : 'Nenhum';
-
-      const problema = formData.get('problem') || '';
-      const urgencia = formData.get('urgency') || '';
-
-      const texto = `Olá! Gostaria de solicitar um orçamento.
+                const texto = `Olá! Gostaria de solicitar um orçamento.
 *Nome:* ${nome}
 *Cidade:* ${cidade}
 *Equipamento:* ${equipamento}
@@ -294,28 +292,12 @@
 *Problema/Necessidade:* ${problema}
 *Urgência:* ${urgencia}`;
 
-      const url = `https://wa.me/5575998587081?text=${encodeURIComponent(texto)}`;
-      window.open(url, '_blank');
-    }
-  </script>
-</section>
+                const url = `https://wa.me/5575998587081?text=${encodeURIComponent(texto)}`;
+                window.open(url, '_blank');
+            }
+        </script>
+    </section>
 
-<style>
-  /* Estilos para checkbox com caixa embaixo do texto */
-  .checkbox-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    cursor: default;
-  }
-  .checkbox-item span {
-    margin-bottom: 4px;
-    user-select: none;
-  }
-  .checkbox-item input[type="checkbox"] {
-    cursor: pointer;
-  }
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -374,4 +356,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
