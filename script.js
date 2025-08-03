@@ -223,3 +223,85 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inicializa a aplicação
     init();
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const quoteForm = document.getElementById('quoteForm');
+    const successMessage = document.getElementById('successMessage');
+
+    // Manipulador de envio do formulário
+    quoteForm.addEventListener('submit', function(event) {
+        // 1. Impede o envio padrão do formulário
+        event.preventDefault();
+
+        // 2. Coleta dos dados do formulário
+        const name = document.getElementById('name').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const device = document.getElementById('device').value;
+        const brand = document.getElementById('brand').value.trim();
+        const problem = document.getElementById('problem').value.trim();
+        const urgency = document.getElementById('urgency').value;
+
+        // Coleta dos serviços selecionados (checkboxes)
+        const selectedServices = [];
+        const serviceCheckboxes = document.querySelectorAll('input[name="services"]:checked');
+        serviceCheckboxes.forEach(checkbox => {
+            // Pega o texto do label associado ao checkbox
+            const label = checkbox.closest('.checkbox-item').querySelector('.checkbox-text');
+            selectedServices.push(label.textContent.trim());
+        });
+
+        // 3. Validação simples (verifica se o nome foi preenchido)
+        if (!name) {
+            alert('Por favor, preencha seu nome completo.');
+            document.getElementById('name').focus();
+            return;
+        }
+
+        // 4. Formatação da mensagem para o WhatsApp
+        let message = `Olá! Gostaria de solicitar um orçamento.\n\n`;
+        message += `*Nome:* ${name}\n`;
+        if (city) message += `*Cidade:* ${city}\n`;
+        
+        // Adiciona detalhes do equipamento se selecionado
+        if (device) {
+            const deviceText = document.querySelector(`#device option[value="${device}"]`).textContent;
+            message += `*Equipamento:* ${deviceText}\n`;
+        }
+        if (brand) message += `*Marca/Modelo:* ${brand}\n`;
+
+        // Adiciona os serviços desejados se algum for selecionado
+        if (selectedServices.length > 0) {
+            message += `\n*Serviços Desejados:*\n- ${selectedServices.join('\n- ')}\n`;
+        }
+
+        // Adiciona a descrição do problema se preenchida
+        if (problem) {
+            message += `\n*Descrição do Problema:*\n${problem}\n`;
+        }
+        
+        // Adiciona a urgência
+        const urgencyText = document.querySelector(`#urgency option[value="${urgency}"]`).textContent;
+        message += `\n*Urgência:* ${urgencyText}`;
+
+        // 5. Geração do link do WhatsApp
+        const whatsappNumber = '5575998587081'; // Seu número com código do país
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+        // 6. Redirecionamento e feedback ao usuário
+        // Mostra a mensagem de sucesso no site
+        quoteForm.style.display = 'none';
+        successMessage.style.display = 'block';
+
+        // Abre o WhatsApp em uma nova aba
+        window.open(whatsappUrl, '_blank' );
+    });
+
+    // Código para o menu hamburguer (se já não tiver)
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+});
