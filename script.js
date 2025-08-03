@@ -1,171 +1,117 @@
-// Mobile Menu Functionality - Versão Otimizada e Corrigida
+// Versão final e unificada do script.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Elementos do DOM
+    // --- SEÇÃO DE ELEMENTOS DO DOM ---
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    const navContainer = document.querySelector('.nav-container');
     const header = document.querySelector('.header');
+    const quoteForm = document.getElementById("quoteForm");
+    const successMessage = document.getElementById("successMessage");
 
-    // Função para alternar o menu
+    // --- SEÇÃO DE MENU E NAVEGAÇÃO ---
+
+    // Função para abrir/fechar o menu mobile
     const toggleMenu = () => {
         const isOpen = navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
-        hamburger.setAttribute('aria-expanded', isOpen);
         document.body.style.overflow = isOpen ? 'hidden' : '';
     };
 
-    // Evento do hamburguer
-    hamburger.addEventListener('click', function(e) {
-        e.stopPropagation();
-        toggleMenu();
-    });
+    // Evento de clique no ícone de hamburguer
+    hamburger.addEventListener('click', toggleMenu);
 
-    // Fechar menu ao clicar nos links
+    // Fecha o menu ao clicar em um link (para navegação na mesma página)
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            if (this.hash) {
-                e.preventDefault();
-                const targetId = this.hash.substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-            
-            if (window.innerWidth <= 768) {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768 && navMenu.classList.contains('active')) {
                 toggleMenu();
             }
         });
     });
 
-    // Fechar menu ao clicar fora (apenas mobile)
-    document.addEventListener('click', function(e) {
-        if (window.innerWidth <= 768 && 
-            !e.target.closest('.nav-container') && 
-            navMenu.classList.contains('active')) {
-            toggleMenu();
-        }
-    });
+    // --- SEÇÃO DE EFEITOS DE SCROLL E ANIMAÇÕES ---
 
-    // Header scroll effect - Suavizado
+    // Efeito de sombra e ocultação do header ao rolar a página
     let lastScroll = 0;
     window.addEventListener('scroll', () => {
         const currentScroll = window.scrollY;
-        
         if (currentScroll > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
             header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            
-            // Esconde o header ao rolar para baixo
-            if (currentScroll > lastScroll && currentScroll > 100) {
+            if (currentScroll > lastScroll) {
                 header.style.transform = 'translateY(-100%)';
             } else {
                 header.style.transform = 'translateY(0)';
             }
         } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
             header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
             header.style.transform = 'translateY(0)';
         }
-        
         lastScroll = currentScroll;
     });
 
-    // Intersection Observer for animations - Otimizado
-    const animateOnScroll = (entries, observer) => {
+    // Animação de elementos ao aparecerem na tela
+    const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate');
                 observer.unobserve(entry.target);
             }
         });
-    };
+    }, { threshold: 0.1 });
 
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
+    document.querySelectorAll('.service-card, .feature-item, .contact-item, .hero-text, .hero-banner').forEach(el => {
+        el.classList.add('will-animate');
+        observer.observe(el);
+    });
 
-    const observer = new IntersectionObserver(animateOnScroll, observerOptions);
+    // --- SEÇÃO DO FORMULÁRIO DE ORÇAMENTO ---
 
-    // Inicializações
-    function init() {
-        // Adiciona classes CSS para animação
-        const animatedElements = document.querySelectorAll(
-            '.service-card, .feature-item, .contact-item, .hero-text, .hero-banner'
-        );
-        
-        animatedElements.forEach(el => {
-            el.classList.add('will-animate');
-            observer.observe(el);
-        });
+    // Função principal que lida com o envio do formulário
+    function handleQuoteForm(event) {
+        event.preventDefault(); // Impede o envio padrão
 
-        // Efeitos hover nos cards - Suavizado
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px)';
-                card.style.boxShadow = '0 10px 25px rgba(0, 119, 204, 0.15)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-                card.style.boxShadow = '';
-            });
-        });
-
-        // Formulário de orçamento
-        const quoteForm = document.getElementById("quoteForm");
-        if (quoteForm) {
-            quoteForm.addEventListener("submit", handleQuoteForm);
-        }
-    }
-
-    // Manipulador do formulário - Melhorado
-    function handleQuoteForm(e) {
-        e.preventDefault();
         const formData = new FormData(this);
-        const data = Object.fromEntries(formData.entries());
-        data.services = formData.getAll("services");
+        const data = {
+            name: formData.get('name')?.trim(),
+            city: formData.get('city')?.trim(),
+            device: formData.get('device'),
+            brand: formData.get('brand')?.trim(),
+            services: formData.getAll('services'),
+            problem: formData.get('problem')?.trim(),
+            urgency: formData.get('urgency')
+        };
 
-        if (!validateForm(data)) return;
+        // Valida os dados antes de continuar
+        if (!validateForm(data)) {
+            return; // Para a execução se a validação falhar
+        }
 
-        // Feedback visual antes do redirecionamento
+        // Se a validação passar, envia para o WhatsApp
+        sendToWhatsApp(data);
+
+        // Mostra a mensagem de sucesso e reseta o formulário
         showSuccessMessage();
-        
-        // Delay para o usuário ver a mensagem de sucesso
-        setTimeout(() => {
-            sendToWhatsApp(data);
-            this.reset();
-        }, 1500);
+        this.reset();
     }
 
+    // Função para validar os campos do formulário
     function validateForm(data) {
-        const requiredFields = ["name", "device"];
-        const missingFields = requiredFields.filter(field => !data[field]);
-        
-        if (missingFields.length > 0) {
-            const fieldNames = {
-                name: "Nome Completo",
-                device: "Tipo de Equipamento"
-            };
-            
-            alert(`Por favor, preencha os seguintes campos obrigatórios:\n${missingFields.map(f => fieldNames[f]).join(', ')}`);
+        if (!data.name) {
+            alert("Por favor, preencha o campo 'Nome Completo'.");
             return false;
         }
-        
-        if (!data.services || data.services.length === 0) {
-            alert("Por favor, selecione pelo menos um serviço.");
+        if (!data.device) {
+            alert("Por favor, selecione o 'Tipo de Equipamento'.");
             return false;
         }
-        
+        if (data.services.length === 0) {
+            alert("Por favor, selecione pelo menos um serviço desejado.");
+            return false;
+        }
         return true;
     }
 
+    // Função para montar a mensagem e redirecionar para o WhatsApp
     function sendToWhatsApp(data) {
         const serviceNames = {
             formatacao: "Formatação",
@@ -176,132 +122,39 @@ document.addEventListener('DOMContentLoaded', function() {
             outros: "Outros Serviços"
         };
 
-        const urgencyNames = {
-            normal: "Normal (até 7 dias)",
-            urgente: "Urgente (até 3 dias)",
-            "muito-urgente": "Muito Urgente (até 24h)"
-        };
+        const deviceText = document.querySelector(`#device option[value="${data.device}"]`).textContent;
+        const urgencyText = document.querySelector(`#urgency option[value="${data.urgency}"]`).textContent;
 
         const messageParts = [
-            `*Novo Orçamento - DMTECH*`,
-            `\n*Dados do Cliente:*`,
-            `👤 Nome: ${data.name}`,
-            data.city && `🏙️ Cidade: ${data.city}`,
-            `\n*Detalhes do Equipamento:*`,
-            `💻 Tipo: ${data.device === 'notebook' ? 'Notebook' : 
-                      data.device === 'desktop' ? 'Computador Desktop' : 
-                      data.device === 'all-in-one' ? 'All-in-One' : 'Outros'}`,
-            data.brand && `🔧 Marca/Modelo: ${data.brand}`,
+            `Olá! Gostaria de solicitar um orçamento.\n`,
+            `*Nome:* ${data.name}`,
+            data.city && `*Cidade:* ${data.city}`,
+            `*Equipamento:* ${deviceText}`,
+            data.brand && `*Marca/Modelo:* ${data.brand}`,
             `\n*Serviços Desejados:*`,
-            ...data.services.map(s => `✔️ ${serviceNames[s] || s}`),
+            ...data.services.map(s => `- ${serviceNames[s] || s}`),
             data.problem && `\n*Descrição do Problema:*\n${data.problem}`,
-            `\n*⏱️ Urgência:* ${urgencyNames[data.urgency] || data.urgency}`
+            `\n*Urgência:* ${urgencyText}`
         ];
 
-        const whatsappURL = `https://wa.me/5575998587081?text=${
-            encodeURIComponent(messageParts.filter(Boolean).join('\n')
-        }`;
+        const whatsappNumber = '5575998587081';
+        const encodedMessage = encodeURIComponent(messageParts.filter(Boolean).join('\n'));
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
-        window.open(whatsappURL, "_blank");
+        // Abre o WhatsApp em uma nova aba. Esta é a ação de redirecionamento.
+        window.open(whatsappURL, "_blank" );
     }
 
+    // Função para mostrar a mensagem de sucesso na tela
     function showSuccessMessage() {
-        const quoteForm = document.getElementById("quoteForm");
-        const successMessage = document.getElementById("successMessage");
-        
         if (quoteForm && successMessage) {
-            quoteForm.style.opacity = '0';
-            quoteForm.style.pointerEvents = 'none';
-            
-            successMessage.style.display = "block";
-            setTimeout(() => {
-                successMessage.style.opacity = '1';
-            }, 50);
+            quoteForm.style.display = 'none';
+            successMessage.style.display = 'block';
         }
     }
 
-    // Inicializa a aplicação
-    init();
-});
-document.addEventListener('DOMContentLoaded', function() {
-    const quoteForm = document.getElementById('quoteForm');
-    const successMessage = document.getElementById('successMessage');
-
-    // Manipulador de envio do formulário
-    quoteForm.addEventListener('submit', function(event) {
-        // 1. Impede o envio padrão do formulário
-        event.preventDefault();
-
-        // 2. Coleta dos dados do formulário
-        const name = document.getElementById('name').value.trim();
-        const city = document.getElementById('city').value.trim();
-        const device = document.getElementById('device').value;
-        const brand = document.getElementById('brand').value.trim();
-        const problem = document.getElementById('problem').value.trim();
-        const urgency = document.getElementById('urgency').value;
-
-        // Coleta dos serviços selecionados (checkboxes)
-        const selectedServices = [];
-        const serviceCheckboxes = document.querySelectorAll('input[name="services"]:checked');
-        serviceCheckboxes.forEach(checkbox => {
-            // Pega o texto do label associado ao checkbox
-            const label = checkbox.closest('.checkbox-item').querySelector('.checkbox-text');
-            selectedServices.push(label.textContent.trim());
-        });
-
-        // 3. Validação simples (verifica se o nome foi preenchido)
-        if (!name) {
-            alert('Por favor, preencha seu nome completo.');
-            document.getElementById('name').focus();
-            return;
-        }
-
-        // 4. Formatação da mensagem para o WhatsApp
-        let message = `Olá! Gostaria de solicitar um orçamento.\n\n`;
-        message += `*Nome:* ${name}\n`;
-        if (city) message += `*Cidade:* ${city}\n`;
-        
-        // Adiciona detalhes do equipamento se selecionado
-        if (device) {
-            const deviceText = document.querySelector(`#device option[value="${device}"]`).textContent;
-            message += `*Equipamento:* ${deviceText}\n`;
-        }
-        if (brand) message += `*Marca/Modelo:* ${brand}\n`;
-
-        // Adiciona os serviços desejados se algum for selecionado
-        if (selectedServices.length > 0) {
-            message += `\n*Serviços Desejados:*\n- ${selectedServices.join('\n- ')}\n`;
-        }
-
-        // Adiciona a descrição do problema se preenchida
-        if (problem) {
-            message += `\n*Descrição do Problema:*\n${problem}\n`;
-        }
-        
-        // Adiciona a urgência
-        const urgencyText = document.querySelector(`#urgency option[value="${urgency}"]`).textContent;
-        message += `\n*Urgência:* ${urgencyText}`;
-
-        // 5. Geração do link do WhatsApp
-        const whatsappNumber = '5575998587081'; // Seu número com código do país
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-        // 6. Redirecionamento e feedback ao usuário
-        // Mostra a mensagem de sucesso no site
-        quoteForm.style.display = 'none';
-        successMessage.style.display = 'block';
-
-        // Abre o WhatsApp em uma nova aba
-        window.open(whatsappUrl, '_blank' );
-    });
-
-    // Código para o menu hamburguer (se já não tiver)
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+    // Adiciona o "ouvinte" de evento ao formulário, se ele existir na página
+    if (quoteForm) {
+        quoteForm.addEventListener("submit", handleQuoteForm);
+    }
 });
