@@ -1,10 +1,4 @@
 /* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 :root {
     --primary-color: #1e3a8a;
     --secondary-color: #3b82f6;
@@ -17,6 +11,18 @@
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
 }
 
 body {
@@ -24,9 +30,12 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     overflow-x: hidden;
+    background-color: var(--bg-light);
 }
 
+/* Layout */
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -38,11 +47,11 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     z-index: 1000;
     box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+    transition: var(--transition);
 }
 
 .nav-container {
@@ -60,42 +69,49 @@ body {
     font-weight: 700;
     font-size: 1.5rem;
     color: var(--primary-color);
+    text-decoration: none;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 2rem;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--text-dark);
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: var(--transition);
     position: relative;
+    padding: 0.5rem 0;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
     color: var(--secondary-color);
+    outline: none;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: 0;
     left: 0;
     width: 0;
     height: 2px;
     background: var(--secondary-color);
-    transition: width 0.3s ease;
+    transition: var(--transition);
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link:focus::after {
     width: 100%;
 }
 
-/* Menu Hamburguer - Versão Corrigida */
+/* Menu Hamburguer */
 .hamburger {
     display: none;
     cursor: pointer;
@@ -116,12 +132,12 @@ body {
     background: var(--text-dark);
     border-radius: 3px;
     left: 0;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    transform-origin: left center;
 }
 
 .hamburger span:nth-child(1) {
     top: 0;
-    transform-origin: left center;
 }
 
 .hamburger span:nth-child(2) {
@@ -131,7 +147,6 @@ body {
 
 .hamburger span:nth-child(3) {
     bottom: 0;
-    transform-origin: left center;
 }
 
 .hamburger.active span:nth-child(1) {
@@ -161,14 +176,14 @@ body {
         background: var(--bg-white);
         flex-direction: column;
         padding: 2rem;
-        transition: all 0.4s ease-out;
+        transition: transform 0.4s ease-out;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
         z-index: 999;
         overflow-y: auto;
     }
     
     .nav-menu.active {
-        left: 0;
+        transform: translateX(100%);
     }
     
     .nav-menu li {
@@ -180,15 +195,20 @@ body {
     }
 }
 
-/* [MANTENHA TODO O RESTO DO SEU CSS ORIGINAL AQUI] 
-   (Hero Section, Services, Quote Form, About, Contact, Footer, etc.) 
-   ... */
-
 /* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -196,7 +216,25 @@ body {
     }
 }
 
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
+/* Acessibilidade */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus styles */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
 }
