@@ -164,7 +164,7 @@ body {
 
 /* Hero Section */
 .hero {
-    padding: 80px 0;
+    padding: 80px 0; /* Aumentei o padding */
     background-color: #f8fafc;
 }
 
@@ -172,54 +172,42 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 60px;
+    gap: 60px; /* Aumentei o gap */
 }
 
-/* Desktop - Imagem à direita */
 .hero-text {
     flex: 1;
-    order: 1; /* Texto primeiro no desktop */
-    min-width: 40%; /* Garante que o texto não fique muito espremido */
+    min-width: 45%; /* Reduzi um pouco o texto */
 }
 
 .hero-banner {
-    flex: 0 0 50%; /* Não cresce, não encolhe, largura base de 45% */
+    flex: 0 0 50%; /* 50% da largura */
     text-align: right;
-    order: 2; /* Imagem depois no desktop */
 }
 
 .hero-banner img {
-    max-width: 100%;
+    width: auto; /* Largura natural da imagem */
+    max-width: 550px; /* Controle máximo */
     height: auto;
-    max-height: 550px; /* Altura máxima controlada */
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 119, 204, 0.15);
-    object-fit: contain; /* Mantém proporções sem distorcer */
 }
 
-/* Mobile - Imagem primeiro */
+/* Mobile */
 @media (max-width: 768px) {
     .hero-content {
         flex-direction: column;
         gap: 30px;
     }
     
-    .hero-text {
-        order: 2;
-        min-width: auto;
-        text-align: center;
-    }
-    
     .hero-banner {
-        order: 1;
-        flex: 0 0 auto;
-        text-align: center;
-        margin-bottom: 20px;
         width: 100%;
+        text-align: center;
     }
     
     .hero-banner img {
-        max-height: 300px; /* Altura menor no mobile */
+        max-width: 100%; /* Ocupa a largura total no mobile */
+        height: auto;
     }
 }
 /* Services Section */
