@@ -237,17 +237,16 @@
     <label for="problem">Descreva o Problema ou Necessidade</label>
     <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
 </div>
-
-<div class="form-group">
+    <div class="form-group">
     <label for="urgency">Urgência</label>
-    <select id="urgency" name="urgency">
-        <option value="normal">Normal (até 7 dias)</option>
-        <div class="form-group">
-    <label for="urgency">Urgência</label>
-    <select id="urgency" name="urgency">
-        <option value="normal">Normal (até 7 dias)</option>
-        <option value="urgente">Urgente (até 3 dias)</option>
-        <option value="muito-urgente">Muito Urgente (até 24h)</option>
+    <div class="select-wrapper">
+        <select id="urgency" name="urgency" class="form-select">
+            <option value="normal">Normal (até 7 dias)</option>
+            <option value="urgente">Urgente (até 3 dias)</option>
+            <option value="muito-urgente">Muito Urgente (até 24h)</option>
+        </select>
+    </div>
+</div>
     </select>
 </div>
 <div class="form-actions">
