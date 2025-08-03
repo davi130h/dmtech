@@ -194,34 +194,39 @@
 
                     <div class="form-group">
                         <label for="services">Serviços Desejados *</label>
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="formatacao">
-                                <span class="checkmark"><span class="checkbox-text">Formatação</span></span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="teclado">
-                                <span class="checkmark"><span class="checkbox-text">Troca de Teclado</span></span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="memoria">
-                                <span class="checkmark"><span class="checkbox-text">Upgrade de Memória RAM</span></span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="ssd">
-                                <span class="checkmark"><span class="checkbox-text">Substituição HD por SSD</span></span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="limpeza">
-                                <span class="checkmark"><span class="checkbox-text">Limpeza Interna</span></span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="services" value="outros">
-                                <span class="checkmark"><span class="checkbox-text">Outros Serviços</span></span>
-                            </label>
-                        </div>
-                    </div>
-
+                        <!-- ===== INÍCIO DA CORREÇÃO DOS CHECKBOXES ===== -->
+<div class="checkbox-group">
+    <label class="checkbox-item">
+        <input type="checkbox" name="services" value="formatacao">
+        <span class="checkmark"></span>
+        <span class="checkbox-text">Formatação</span>
+    </label>
+    <label class="checkbox-item">
+        <input type="checkbox" name="services" value="teclado">
+        <span class="checkmark"></span>
+        <span class="checkbox-text">Troca de Teclado</span>
+    </label>
+    <label class="checkbox-item">
+        <input type="checkbox" name="services" value="memoria">
+        <span class="checkmark"></span>
+        <span class="checkbox-text">Upgrade de Memória RAM</span>
+    </label>
+    <label class="checkbox-item">
+        <input type="checkbox" name="services" value="ssd">
+        <span class="checkmark"></span>
+        <span class="checkbox-text">Substituição HD por SSD</span>
+    </label>
+    <label class="checkbox-item">
+        <input type="checkbox" name="services" value="limpeza">
+        <span class="checkmark"></span>
+        <span class="checkbox-text">Limpeza Interna</span>
+    </label>
+    <label class="checkbox-item">
+        <input type="checkbox" name="services" value="outros">
+        <span class="checkmark"></span>
+        <span class="checkbox-text">Outros Serviços</span>
+    </label>
+</div>
                     <div class="form-group">
                         <label for="problem">Descreva o Problema ou Necessidade</label>
                         <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
