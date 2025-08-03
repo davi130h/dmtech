@@ -418,25 +418,48 @@ body {
     gap: 8px;
     cursor: pointer;
 }
-
-.checkbox-item input {
-    width: auto;
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
 }
 
-.checkmark {
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Esconde o checkbox nativo */
+.checkbox-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Checkbox personalizado */
+.checkbox-item .checkmark {
     display: inline-block;
     width: 18px;
     height: 18px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    position: relative;
+    background-color: white;
+    transition: var(--transition);
 }
 
+/* Estilo quando marcado */
 .checkbox-item input:checked ~ .checkmark {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
 }
 
+/* Ícone de check */
 .checkbox-item input:checked ~ .checkmark::after {
     content: '✓';
     position: absolute;
@@ -447,11 +470,11 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.form-actions {
-    margin-top: 2rem;
-    text-align: center;
+/* Texto do checkbox */
+.checkbox-item span:not(.checkmark) {
+    font-size: 0.95rem;
+    color: var(--text-dark);
 }
-
 .form-note {
     margin-top: 1rem;
     font-size: 0.85rem;
