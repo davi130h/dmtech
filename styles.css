@@ -405,35 +405,15 @@ body {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
-}
-
 .checkbox-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
-}
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin-bottom: 8px;
     cursor: pointer;
     position: relative;
+    padding-left: 28px;
 }
 
-/* Esconde o checkbox nativo */
 .checkbox-item input[type="checkbox"] {
     position: absolute;
     opacity: 0;
@@ -442,38 +422,43 @@ body {
     width: 0;
 }
 
-/* Checkbox personalizado */
-.checkbox-item .checkmark {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: white;
-    transition: var(--transition);
-}
-
-/* Estilo quando marcado */
-.checkbox-item input:checked ~ .checkmark {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-}
-
-/* Ícone de check */
-.checkbox-item input:checked ~ .checkmark::after {
-    content: '✓';
+.checkmark {
     position: absolute;
-    color: white;
-    font-size: 12px;
-    top: 50%;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #cce5ff;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-item:hover input ~ .checkmark {
+    background-color: #f1f1f1;
+}
+
+.checkbox-item input:checked ~ .checkmark {
+    background-color: #f8fbff;
+    border-color: #10b981;
+}
+
+/* Símbolo de check verde */
+.checkbox-item input:checked ~ .checkmark::after {
+    content: "✓";
+    position: absolute;
+    display: block;
+    color: #10b981; /* Verde */
+    font-size: 14px;
+    font-weight: bold;
     left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
 }
 
-/* Texto do checkbox */
-.checkbox-item span:not(.checkmark) {
-    font-size: 0.95rem;
-    color: var(--text-dark);
+.checkbox-text {
+    margin-left: 8px;
+    color: #1f2937;
 }
 .form-note {
     margin-top: 1rem;
