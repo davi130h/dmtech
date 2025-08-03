@@ -470,13 +470,12 @@ body {
     margin-top: 10px;
 }
 
-/* --- CORREÇÃO APLICADA AQUI --- */
 .checkbox-item {
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    position: relative; /* 1. ADICIONADO: Define o contexto de posicionamento */
+    position: relative;
 }
 
 .checkbox-item input[type="checkbox"] {
@@ -488,13 +487,16 @@ body {
 }
 
 .checkbox-item .checkmark {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 18px;
     height: 18px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     background-color: white;
     transition: var(--transition);
+    position: relative;
 }
 
 .checkbox-item input:checked ~ .checkmark {
@@ -502,15 +504,14 @@ body {
     border-color: #10b981;
 }
 
-/* --- CORREÇÃO APLICADA AQUI --- */
 .checkbox-item input:checked ~ .checkmark::after {
     content: "✓";
-    position: absolute;
     color: #10b981;
-    font-size: 14px; /* 2. AJUSTADO: Tamanho e posição do "V" */
+    font-size: 14px;
     font-weight: bold;
-    left: 9px; /* Metade da largura do checkmark (18px / 2) */
+    position: absolute;
     top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -766,4 +767,4 @@ textarea:focus {
     transition: 
         transform 0.3s ease, 
         box-shadow 0.3s ease;
-}
+}```
