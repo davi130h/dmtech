@@ -1,4 +1,4 @@
-/* Reset and Base Styles */
+ /* Reset and Base Styles */
 :root {
     --primary-color: #1e3a8a;
     --secondary-color: #3b82f6;
@@ -470,12 +470,13 @@ body {
     margin-top: 10px;
 }
 
+/* --- CORREÇÃO APLICADA AQUI --- */
 .checkbox-item {
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    position: relative;
+    position: relative; /* 1. ADICIONADO: Define o contexto de posicionamento */
 }
 
 .checkbox-item input[type="checkbox"] {
@@ -501,13 +502,14 @@ body {
     border-color: #10b981;
 }
 
+/* --- CORREÇÃO APLICADA AQUI --- */
 .checkbox-item input:checked ~ .checkmark::after {
     content: "✓";
     position: absolute;
     color: #10b981;
-    font-size: 12px;
+    font-size: 14px; /* 2. AJUSTADO: Tamanho e posição do "V" */
     font-weight: bold;
-    left: 50%;
+    left: 9px; /* Metade da largura do checkmark (18px / 2) */
     top: 50%;
     transform: translate(-50%, -50%);
 }
