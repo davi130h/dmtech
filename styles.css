@@ -204,6 +204,7 @@ body {
         order: initial; /* Reseta a ordem no mobile */
         text-align: center;
     }
+}
 /* Services Section */
 .services {
     padding: 80px 0;
