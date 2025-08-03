@@ -179,28 +179,47 @@ body {
 .hero-text {
     flex: 1;
     order: 1; /* Texto primeiro no desktop */
+    min-width: 50%; /* Garante que o texto não fique muito espremido */
 }
 
 .hero-banner {
-    flex: 1;
+    flex: 0 0 45%; /* Não cresce, não encolhe, largura base de 45% */
     text-align: right;
     order: 2; /* Imagem depois no desktop */
+}
+
+.hero-banner img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px; /* Altura máxima controlada */
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 119, 204, 0.1);
+    object-fit: contain; /* Mantém proporções sem distorcer */
 }
 
 /* Mobile - Imagem primeiro */
 @media (max-width: 768px) {
     .hero-content {
         flex-direction: column;
+        gap: 20px;
     }
     
     .hero-text {
-        order: 2; /* Texto depois no mobile */
+        order: 2;
+        min-width: auto;
+        text-align: center;
     }
     
     .hero-banner {
-        order: 1; /* Imagem primeiro no mobile */
+        order: 1;
+        flex: 0 0 auto;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    
+    .hero-banner img {
+        max-height: 300px; /* Altura menor no mobile */
     }
 }
 /* Services Section */
