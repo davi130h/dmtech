@@ -1,33 +1,45 @@
-// Versão final e unificada do script.js (v2 - com menu dinâmico)
+/**
+ * DM TECH - SCRIPT OTIMIZADO (2025)
+ *
+ * Este script controla todas as interatividades do site, incluindo:
+ * - Menu de navegação (hamburguer e rolagem suave)
+ * - Destaque dinâmico do link ativo no menu
+ * - Animações de entrada ao rolar a página
+ * - Validação e envio do formulário de orçamento para o WhatsApp
+ */
+
 document.addEventListener('DOMContentLoaded', function() {
-    // --- SEÇÃO DE ELEMENTOS DO DOM ---
+
+    // --- 1. SELEÇÃO DE ELEMENTOS DO DOM ---
+    // Selecionar todos os elementos uma única vez para melhor performance.
+    const header = document.querySelector('.header');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
-    const header = document.querySelector('.header');
-    const quoteForm = document.getElementById("quoteForm");
-    const successMessage = document.getElementById("successMessage");
-    // Seleciona todas as seções que têm um ID
     const sections = document.querySelectorAll('section[id]');
+    const quoteForm = document.getElementById('quoteForm');
+    const successMessage = document.getElementById('successMessage');
 
-    // --- SEÇÃO DE MENU E NAVEGAÇÃO ---
+    // --- 2. NAVEGAÇÃO E MENU MOBILE ---
     const toggleMenu = () => {
         const isOpen = navMenu.classList.toggle('active');
         hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isOpen);
         document.body.style.overflow = isOpen ? 'hidden' : '';
     };
 
-    hamburger.addEventListener('click', (event) => {
-        event.stopPropagation();
-        toggleMenu();
-    });
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleMenu();
+        });
+    }
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
             if (this.hash !== "") {
                 event.preventDefault();
-                const targetId = this.hash;
-                const targetSection = document.querySelector(targetId);
+                const targetSection = document.querySelector(this.hash);
                 if (targetSection) {
                     const headerOffset = header.offsetHeight;
                     const elementPosition = targetSection.getBoundingClientRect().top;
@@ -41,49 +53,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // --- NOVA FUNÇÃO: ATIVAR LINK DO MENU AO ROLAR A PÁGINA ---
-    const activateMenuOnScroll = () => {
-        let scrollY = window.pageYOffset;
-
-        sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - header.offsetHeight - 50; // Adiciona um pequeno offset
-            let sectionId = current.getAttribute('id');
-
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                // Remove a classe 'active' de todos os links
-                navLinks.forEach(link => link.classList.remove('active'));
-                
-                // Adiciona a classe 'active' ao link correspondente à seção visível
-                document.querySelector('.nav-menu a[href*=' + sectionId + ']').classList.add('active');
-            }
-        });
-    };
-
-    // Adiciona os "ouvintes" de evento para rolagem e carregamento da página
-    window.addEventListener('scroll', activateMenuOnScroll);
-    window.addEventListener('load', activateMenuOnScroll);
-
-
-    // --- SEÇÃO DE EFEITOS DE SCROLL E ANIMAÇÕES ---
+    // --- 3. LÓGICA DE SCROLL (EFEITOS E MENU ATIVO) ---
     let lastScroll = 0;
-    window.addEventListener('scroll', () => {
+
+    const handleScroll = () => {
+        // Efeito de esconder/mostrar header
         const currentScroll = window.scrollY;
         if (currentScroll > 100) {
-            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
             if (currentScroll > lastScroll) {
                 header.style.transform = 'translateY(-100%)';
             } else {
                 header.style.transform = 'translateY(0)';
             }
         } else {
-            header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+            header.style.boxShadow = 'var(--shadow-sm)';
             header.style.transform = 'translateY(0)';
         }
         lastScroll = currentScroll;
-    });
 
-    const observer = new IntersectionObserver((entries, observer) => {
+        // Destaque do link ativo no menu
+        let activeSectionId = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - header.offsetHeight - 50;
+            if (currentScroll >= sectionTop) {
+                activeSectionId = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${activeSectionId}`) {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('load', handleScroll); // Garante o estado correto ao carregar a página
+
+    // --- 4. ANIMAÇÕES DE ENTRADA (INTERSECTION OBSERVER) ---
+    const animationObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('animate');
@@ -92,15 +102,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.service-card, .feature-item, .contact-item, .hero-text, .hero-banner').forEach(el => {
-        el.classList.add('will-animate');
-        observer.observe(el);
+    document.querySelectorAll('.will-animate').forEach(el => {
+        animationObserver.observe(el);
     });
 
-    // --- SEÇÃO DO FORMULÁRIO DE ORÇAMENTO ---
-    function handleQuoteForm(event) {
+    // --- 5. FORMULÁRIO DE ORÇAMENTO ---
+    const handleQuoteForm = (event) => {
         event.preventDefault();
-        const formData = new FormData(this);
+        const formData = new FormData(quoteForm);
         const data = {
             name: formData.get('name')?.trim(),
             device: formData.get('device'),
@@ -110,15 +119,14 @@ document.addEventListener('DOMContentLoaded', function() {
             urgency: formData.get('urgency')
         };
 
-        if (!validateForm(data)) {
-            return;
-        }
+        if (!validateForm(data)) return;
+
         sendToWhatsApp(data);
         showSuccessMessage();
-        this.reset();
-    }
+        quoteForm.reset();
+    };
 
-    function validateForm(data) {
+    const validateForm = (data) => {
         if (!data.name) {
             alert("Por favor, preencha o campo 'Nome'.");
             return false;
@@ -132,24 +140,19 @@ document.addEventListener('DOMContentLoaded', function() {
             return false;
         }
         return true;
-    }
+    };
 
-    function sendToWhatsApp(data) {
+    const sendToWhatsApp = (data) => {
         const serviceNames = {
-            formatacao: "Formatação",
-            teclado: "Troca de Teclado",
-            memoria: "Upgrade de Memória RAM",
-            ssd: "Substituição HD por SSD",
-            limpeza: "Limpeza Interna",
-            outros: "Outros Serviços"
+            formatacao: "Formatação", teclado: "Troca de Teclado", memoria: "Upgrade de Memória RAM",
+            ssd: "Substituição HD por SSD", limpeza: "Limpeza Interna", outros: "Outros Serviços"
         };
-
         const deviceText = document.querySelector(`#device option[value="${data.device}"]`).textContent;
         const urgencyText = document.querySelector(`#urgency option[value="${data.urgency}"]`).textContent;
 
         const messageParts = [
-            `Olá! Gostaria de solicitar um orçamento.\n`,
-            `*Nome:* ${data.name}`,
+            `*Novo Orçamento - DM TECH*`,
+            `\n*Cliente:* ${data.name}`,
             `*Equipamento:* ${deviceText}`,
             data.brand && `*Marca/Modelo:* ${data.brand}`,
             `\n*Serviços Desejados:*`,
@@ -161,15 +164,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const whatsappNumber = '5575998587081';
         const encodedMessage = encodeURIComponent(messageParts.filter(Boolean).join('\n'));
         const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-        window.open(whatsappURL, "_blank" );
-    }
+        window.open(whatsappURL, "_blank");
+    };
 
-    function showSuccessMessage() {
+    const showSuccessMessage = () => {
         if (quoteForm && successMessage) {
             quoteForm.style.display = 'none';
             successMessage.style.display = 'block';
+            // Opcional: reverter após alguns segundos
+            // setTimeout(() => {
+            //     quoteForm.style.display = 'block';
+            //     successMessage.style.display = 'none';
+            // }, 5000);
         }
-    }
+    };
 
     if (quoteForm) {
         quoteForm.addEventListener("submit", handleQuoteForm);
