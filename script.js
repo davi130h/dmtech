@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quoteForm && successMessage) {
             quoteForm.style.display = 'none';
             successMessage.style.display = 'block';
-            // Opcional: reverter após alguns segundos
+            // Opcional: reverter após alguns segundos para permitir novo envio
             // setTimeout(() => {
             //     quoteForm.style.display = 'block';
             //     successMessage.style.display = 'none';
