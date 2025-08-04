@@ -1,22 +1,18 @@
 /* ==========================================================================
-   DESIGN FINAL - DMTECH 2025 (v6 - Checkbox Sutil)
+   DM TECH - FOLHA DE ESTILO OTIMIZADA (2025)
    ========================================================================== */
 
-/* 1. CONFIGURAÇÕES GLOBAIS E PALETA DE CORES */
+/* 1. CONFIGURAÇÕES GLOBAIS E VARIÁVEIS */
 :root {
     --primary-blue: #3a5bff;
     --primary-blue-dark: #2947c6;
-    --secondary-blue: #1e90ff;
     --text-dark: #111827;
     --text-light: #6b7280;
     --bg-light: #f9fafb;
     --bg-white: #ffffff;
     --border-color: #d1d5db;
-    --border-focus-color: var(--primary-blue);
     --success-color: #10b981;
-    --tag-bg: #f3f4f6;
-    --tag-text: #4b5563;
-    --gradient: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+    --gradient: linear-gradient(135deg, var(--primary-blue), #1e90ff);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
@@ -29,10 +25,10 @@
 html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 80px; }
 
 body {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.7;
     color: var(--text-dark);
-    background-color: var(--bg-light);
+    background-color: var(--bg-white);
     padding-top: 70px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -41,325 +37,98 @@ body {
 .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
 /* 2. HEADER E NAVEGAÇÃO */
-.header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); z-index: 1000; box-shadow: var(--shadow-sm); transition: var(--transition); }
-.nav-container { display: flex; justify-content: space-between; align-items: center; height: 70px; padding: 0 20px; }
-.logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 800; font-size: 1.75rem; color: var(--text-dark); text-decoration: none; }
+.header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); z-index: 1000; box-shadow: var(--shadow-sm); transition: var(--transition); }
+.nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+.logo { font-weight: 800; font-size: 1.5rem; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
 .nav-menu { display: flex; list-style: none; gap: 2rem; }
 .nav-link { position: relative; text-decoration: none; color: var(--text-dark); font-weight: 500; padding: 0.25rem 0; transition: color 0.3s ease; }
 .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background-color: var(--primary-blue); transition: width 0.3s ease-out; }
 .nav-link:hover, .nav-link.active { color: var(--primary-blue); }
 .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 .hamburger { display: none; cursor: pointer; width: 30px; height: 24px; position: relative; z-index: 1001; background: transparent; border: none; padding: 0; }
-.hamburger span { display: block; position: absolute; height: 3px; width: 100%; background: var(--text-dark); border-radius: 3px; left: 0; transition: var(--transition); transform-origin: left center; }
+.hamburger span { display: block; position: absolute; height: 3px; width: 100%; background: var(--text-dark); border-radius: 3px; left: 0; transition: var(--transition); transform-origin: center; }
 .hamburger span:nth-child(1) { top: 0; }
 .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
 .hamburger span:nth-child(3) { bottom: 0; }
-.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(1px, -1px); }
+.hamburger.active span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(1px, 1px); }
+.hamburger.active span:nth-child(3) { top: 50%; transform: translateY(-50%) rotate(-45deg); }
 
-@media (max-width: 768px) {
-    .hamburger { display: block; }
-    .nav-menu { position: fixed; top: 70px; left: 0; transform: translateX(-100%); width: 100%; height: calc(100vh - 70px); background: var(--bg-white); flex-direction: column; padding: 2rem; transition: transform 0.4s ease-out; box-shadow: var(--shadow-lg); z-index: 999; overflow-y: auto; }
-    .nav-menu.active { transform: translateX(0); }
-    .nav-link { padding: 1rem; display: block; font-size: 1.2rem; }
-    .nav-link::after { display: none; }
-}
+/* 3. ESTILOS DE SEÇÃO PADRÃO */
+section { padding: 80px 0; }
+section:nth-of-type(odd) { background-color: var(--bg-light); } /* Fundo alternado */
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-title { font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-dark); }
+.section-subtitle { color: var(--text-light); font-size: 1.125rem; max-width: 700px; margin: 0 auto; }
 
-/* 3. SEÇÃO HERO */
+/* 4. SEÇÃO HERO */
 .hero { padding: 60px 0; background-color: var(--bg-white); }
-.hero-container { display: flex; align-items: center; gap: 2rem; }
-.hero-banner-column, .hero-text-column { flex: 1; padding: 1rem; }
-.hero-banner-column { border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-xl); line-height: 0; }
-.hero-banner-image { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 24px; }
-.hero-text-column { text-align: left; }
-.hero-title { font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; color: var(--text-dark); }
+.hero-container { display: flex; align-items: center; gap: 3rem; }
+.hero-banner-column, .hero-text-column { flex: 1; }
+.hero-banner-column { border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-xl); }
+.hero-banner-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-title { font-size: clamp(2.5rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
 .hero-title .highlight { color: var(--primary-blue); }
 .hero-subtitle { font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem; max-width: 500px; }
-.hero-buttons { display: flex; gap: 1rem; justify-content: flex-start; }
+.hero-buttons { display: flex; gap: 1rem; }
 
-@media (max-width: 992px) {
-    .hero-container { flex-direction: column; }
-    .hero-text-column { text-align: center; }
-    .hero-buttons { justify-content: center; }
-}
-
-/* 4. BOTÕES */
+/* 5. BOTÕES */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 14px 32px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: var(--transition); cursor: pointer; border: 2px solid transparent; font-size: 1rem; }
 .btn-primary { background: var(--gradient); color: white; box-shadow: var(--shadow); }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
 .btn-secondary { background-color: var(--bg-white); color: var(--text-dark); border-color: var(--border-color); }
 .btn-secondary:hover { border-color: var(--primary-blue); color: var(--primary-blue); transform: translateY(-3px); box-shadow: var(--shadow); }
 
-/* 5. SEÇÃO DE SERVIÇOS E CARDS */
-.services { padding: 80px 0; background-color: var(--bg-light); }
-.section-header { text-align: center; margin-bottom: 4rem; }
-.section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-dark); }
-.section-subtitle { color: var(--text-light); font-size: 1.125rem; max-width: 700px; margin: 0 auto; }
-.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+/* 6. CARDS DE SERVIÇO E FEATURES */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
 .service-card { padding: 35px; border-radius: 24px; background-color: var(--bg-white); border: 1px solid #e5e7eb; box-shadow: var(--shadow); transition: var(--transition); position: relative; overflow: hidden; }
 .service-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
 .service-card.featured { background: var(--gradient); color: white; border: none; }
-.service-icon { font-size: 2.5rem; margin-bottom: 1.5rem; line-height: 1; }
-.featured .service-icon { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
-.service-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
+.service-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.service-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
 .featured .service-title { color: white; }
 .service-description { color: var(--text-light); margin-bottom: 1.5rem; }
-.featured .service-description { color: rgba(255, 255, 255, 0.85); }
+.featured .service-description { color: rgba(255, 255, 255, 0.9); }
 .service-features { display: flex; flex-direction: column; gap: 0.75rem; font-weight: 500; }
-.feature { color: var(--text-dark); font-size: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+.feature { display: flex; align-items: center; gap: 0.75rem; }
 .featured .feature { color: white; }
 .feature::before { content: '✓'; color: var(--success-color); }
 .featured .feature::before { color: white; }
-.service-badge { position: absolute; top: 20px; right: 20px; background: #10b981; color: white; padding: 6px 16px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
+.service-badge { position: absolute; top: 20px; right: 20px; background: var(--success-color); color: white; padding: 6px 16px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
+.about-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+.feature-item { display: flex; align-items: flex-start; gap: 1rem; }
+.feature-icon { font-size: 1.5rem; color: var(--primary-blue); }
+.feature-content h3 { margin-bottom: 0.5rem; }
+.feature-content p { color: var(--text-light); }
 
-/* 6. SEÇÃO DE ORÇAMENTO E FORMULÁRIO */
-.quote-form { padding: 80px 0; background-color: var(--bg-white); }
-.quote-form-container { width: 100%; max-width: 800px; margin: auto; padding: 48px; border-radius: 24px; background-color: var(--bg-white); box-shadow: var(--shadow-lg); border: 1px solid #e5e7eb; }
-.form-group { margin-bottom: 1.5rem; }
-.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-dark); }
+/* 7. FORMULÁRIO DE ORÇAMENTO */
+.quote-form-container { width: 100%; max-width: 800px; margin: auto; padding: 2.5rem; border-radius: 24px; background-color: var(--bg-white); box-shadow: var(--shadow-lg); border: 1px solid #e5e7eb; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.form-group { margin-bottom: 0; } /* Removido margin-bottom para o grid controlar */
+.form-group.form-span-2 { grid-column: span 2; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 1rem; transition: var(--transition); background-color: var(--bg-light); }
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--border-focus-color); outline: none; box-shadow: 0 0 0 3px rgba(58, 91, 255, 0.2); background-color: var(--bg-white); }
-
-   7. CHECKBOXES (ESTILO FINAL CORRIGIDO)
-   ========================================================================== */
-
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 0.5rem; /* Espaçamento vertical */
-    row-gap: 1rem; /* Espaçamento horizontal */
-    margin-top: 10px;
-}
-
-.checkbox-item {
-    display: flex;
-    /* Alinha a caixinha com o topo do texto, resolvendo o problema de quebra de linha */
-    align-items: flex-start; 
-    gap: 0.75rem;
-    position: relative;
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-}
-
-.checkbox-item:hover {
-    background-color: var(--tag-bg);
-}
-
-.checkbox-item input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.checkbox-item .checkmark {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--bg-white);
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    /* Adicionado para alinhar corretamente com o texto que quebra a linha */
-    margin-top: 0.2em; 
-}
-
-.checkbox-text {
-    font-size: 1rem;
-    color: var(--text-dark);
-    font-weight: 500;
-    line-height: 1.5; /* Melhora a legibilidade do texto que quebra a linha */
-}
-
-/* --- ESTILO QUANDO O CHECKBOX ESTÁ MARCADO --- */
-
-.checkbox-item input:checked ~ .checkmark {
-    border-color: var(--primary-blue);
-    background-color: var(--primary-blue);
-}
-
-/* Cria o "X" dentro da caixinha */
-.checkbox-item input:checked ~ .checkmark::after {
-    content: 'X';
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: white;
-    transform: scale(1) rotate(0deg); /* Garante que o "X" apareça sem rotação */
-    transition: transform 0.2s ease;
-}
-
-/* Garante que o "X" não exista quando não está marcado */
-.checkbox-item .checkmark::after {
-    content: '';
-    transform: scale(0);
-}
-
-/* ==========================================================================
-   8. SEÇÕES FINAIS (CONTATO COM NOVO DESIGN) E FOOTER
-   ========================================================================== */
-
-/* Estilos do Formulário (mantidos como estavam) */
-.form-actions { margin-top: 2.5rem; text-align: left; }
-.form-actions .btn { width: 100%; padding: 16px; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-blue); outline: none; box-shadow: 0 0 0 3px rgba(58, 91, 255, 0.2); background-color: var(--bg-white); }
+.checkbox-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 10px; }
+.checkbox-item { display: flex; align-items: flex-start; gap: 0.75rem; position: relative; cursor: pointer; padding: 0.5rem; border-radius: 8px; transition: background-color 0.2s ease; }
+.checkbox-item:hover { background-color: #f3f4f6; }
+.checkbox-item input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+.checkbox-item .checkmark { width: 20px; height: 20px; border: 2px solid var(--border-color); border-radius: 4px; background-color: var(--bg-white); transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2em; }
+.checkbox-text { font-size: 1rem; font-weight: 500; line-height: 1.5; }
+.checkbox-item input:checked ~ .checkmark { border-color: var(--primary-blue); background-color: var(--primary-blue); }
+.checkbox-item input:checked ~ .checkmark::after { content: 'X'; font-size: 0.8rem; font-weight: 800; color: white; transform: scale(1); }
+.checkbox-item .checkmark::after { content: ''; transform: scale(0); }
+.form-actions { margin-top: 2rem; }
 .form-note { margin-top: 1rem; font-size: 0.875rem; color: var(--text-light); }
 .success-message { text-align: center; padding: 40px; }
-.success-icon { font-size: 3rem; color: var(--success-color); margin-bottom: 1.5rem; }
-.success-message h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-dark); }
-.success-message p { color: var(--text-light); }
+.success-icon { font-size: 3rem; color: var(--success-color); }
 
-/* Seção Sobre (mantida como estava) */
-.about {
-    padding: 80px 0;
-    background-color: var(--bg-white);
-}
-.about-content {
-    background-color: var(--bg-white);
-    padding: 2rem;
-    border-radius: 24px;
-    box-shadow: var(--shadow-lg);
-}
-.about-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-.feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
-.feature-icon {
-    font-size: 1.5rem;
-    color: var(--primary-blue);
-}
-.feature-content h3 {
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-}
-.feature-content p {
-    color: var(--text-light);
-    font-size: 1rem;
-}
-
-
-/* ===== INÍCIO DA ALTERAÇÃO: SEÇÃO DE CONTATO COM NOVO DESIGN ===== */
-.contact {
-    padding: 80px 0;
-    background-color: var(--bg-light);
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 4rem;
-}
-
-.contact-card {
-    background-color: var(--bg-white);
-    padding: 2rem;
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    transition: var(--transition);
-    border: 1px solid #e5e7eb;
-}
-
-.contact-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
-}
-
-.contact-icon-wrapper {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto 1.5rem;
-    border-radius: 50%;
-    background-color: #eef2ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.contact-icon {
-    font-size: 1.75rem;
-}
-
-.contact-details h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--text-dark);
-}
-
-.contact-details p {
-    color: var(--text-light);
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.contact-link {
-    color: var(--primary-blue);
-    text-decoration: none; /* Remove o sublinhado */
-    font-weight: 600;
-    font-size: 1rem;
-    transition: color 0.2s ease;
-}
-
-.contact-link:hover {
-    color: var(--primary-blue-dark);
-}
-/* ===== FIM DA ALTERAÇÃO ===== */
-
-
-/* Rodapé (mantido como estava) */
-.footer {
-    background-color: var(--text-dark);
-    color: white;
-    padding: 60px 0 30px;
-}
-.footer-content {
-    text-align: center;
-}
-.footer-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 2rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-}
-.footer-text {
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    opacity: 0.8;
-}
-.footer-bottom {
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
-    opacity: 0.6;
-}
-
-/* Animações (mantidas como estavam) */
-.will-animate {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.will-animate.animate {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Animações de Entrada */
-.will-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.will-animate.animate { opacity: 1; transform: translateY(0); }
+/* 8. SEÇÃO DE CONTATO */
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.contact-card { background-color: var(--bg-white); padding: 2rem; border-radius: 24px; box-shadow: var(--shadow); text-align: center; transition: var(--transition); border: 1px solid #e5e7eb; }
+.contact-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
+.contact-icon-wrapper { width: 60px; height: 60px; margin: 0 auto 1.5rem; border-radius: 50%; background-color: #eef2ff; display: flex; align-items: center; justify-content: center; }
+.contact-icon { font-size: 1.75rem; }
+.contact-details h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.contact-details p { color: var(--text-light); }
+.contact-link { color
