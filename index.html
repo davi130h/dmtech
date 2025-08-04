@@ -15,6 +15,7 @@
             <div class="nav-container">
                 <div class="logo">👨‍💻DM TECH</div>
                 <ul class="nav-menu">
+                    <!-- Classe 'active' removida daqui para o JS controlar -->
                     <li><a href="#home" class="nav-link">Início</a></li>
                     <li><a href="#services" class="nav-link">Serviços</a></li>
                     <li><a href="#quote" class="nav-link">Orçamento</a></li>
@@ -33,12 +34,9 @@
     <!-- Seção Hero -->
     <section id="home" class="hero">
         <div class="hero-container container">
-            <!-- Coluna da Esquerda: Apenas o Banner -->
             <div class="hero-banner-column">
                 <img src="banner.png" alt="Banner de Manutenção de Computador" class="hero-banner-image">
             </div>
-
-            <!-- Coluna da Direita: Texto e Botões -->
             <div class="hero-text-column">
                 <h1 class="hero-title">Manutenção Profissional em <span class="highlight">Notebooks e Computadores</span></h1>
                 <p class="hero-subtitle">Serviços especializados com qualidade e garantia. Seu equipamento funcionando como novo!</p>
@@ -68,7 +66,6 @@
                         <span class="feature">Drivers atualizados</span>
                     </div>
                 </div>
-                
                 <div class="service-card">
                     <div class="service-icon">⌨️</div>
                     <h3 class="service-title">Troca de Teclado</h3>
@@ -79,7 +76,6 @@
                         <span class="feature">Teste completo</span>
                     </div>
                 </div>
-                
                 <div class="service-card">
                     <div class="service-icon">🧠</div>
                     <h3 class="service-title">Upgrade de Memória RAM</h3>
@@ -90,7 +86,6 @@
                         <span class="feature">Teste de estabilidade</span>
                     </div>
                 </div>
-                
                 <div class="service-card featured">
                     <div class="service-icon">⚡</div>
                     <h3 class="service-title">Substituição HD por SSD</h3>
@@ -102,7 +97,6 @@
                     </div>
                     <div class="service-badge">Mais Popular</div>
                 </div>
-                
                 <div class="service-card">
                     <div class="service-icon">🔧</div>
                     <h3 class="service-title">Outros Serviços</h3>
@@ -167,15 +161,10 @@
             </div>
             <div class="quote-content">
                 <form id="quoteForm" class="quote-form-container">
-                    <!-- ===== INÍCIO DAS ALTERAÇÕES ===== -->
                     <div class="form-group">
                         <label for="name">Nome *</label>
                         <input type="text" id="name" name="name" required>
                     </div>
-                    
-                    <!-- O CAMPO CIDADE FOI REMOVIDO DAQUI -->
-                    <!-- ===== FIM DAS ALTERAÇÕES ===== -->
-
                     <div class="form-group">
                         <label for="device">Tipo de Equipamento *</label>
                         <select id="device" name="device" required>
@@ -186,52 +175,49 @@
                             <option value="outros">Outros</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label for="brand">Marca e Modelo</label>
                         <input type="text" id="brand" name="brand" placeholder="Ex: Dell Inspiron 15, HP Pavilion, etc.">
                     </div>
-
                     <div class="form-group">
                         <label for="services">Serviços Desejados *</label>
-                        <!-- ===== INÍCIO DA CORREÇÃO DOS CHECKBOXES ===== -->
-<div class="checkbox-group">
-    <label class="checkbox-item">
-        <input type="checkbox" name="services" value="formatacao">
-        <span class="checkmark"></span>
-        <span class="checkbox-text">Formatação</span>
-    </label>
-    <label class="checkbox-item">
-        <input type="checkbox" name="services" value="teclado">
-        <span class="checkmark"></span>
-        <span class="checkbox-text">Troca de Teclado</span>
-    </label>
-    <label class="checkbox-item">
-        <input type="checkbox" name="services" value="memoria">
-        <span class="checkmark"></span>
-        <span class="checkbox-text">Upgrade de Memória RAM</span>
-    </label>
-    <label class="checkbox-item">
-        <input type="checkbox" name="services" value="ssd">
-        <span class="checkmark"></span>
-        <span class="checkbox-text">Substituição HD por SSD</span>
-    </label>
-    <label class="checkbox-item">
-        <input type="checkbox" name="services" value="limpeza">
-        <span class="checkmark"></span>
-        <span class="checkbox-text">Limpeza Interna</span>
-    </label>
-    <label class="checkbox-item">
-        <input type="checkbox" name="services" value="outros">
-        <span class="checkmark"></span>
-        <span class="checkbox-text">Outros Serviços</span>
-    </label>
-</div>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="formatacao">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Formatação</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="teclado">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Troca de Teclado</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="memoria">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Upgrade de Memória RAM</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="ssd">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Substituição HD por SSD</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="limpeza">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Limpeza Interna</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="services" value="outros">
+                                <span class="checkmark"></span>
+                                <span class="checkbox-text">Outros Serviços</span>
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="problem">Descreva o Problema ou Necessidade</label>
                         <textarea id="problem" name="problem" rows="4" placeholder="Descreva detalhadamente o problema do seu equipamento ou o que você precisa..."></textarea>
                     </div>
-
                     <div class="form-group">
                         <label for="urgency">Urgência</label>
                         <select id="urgency" name="urgency">
@@ -240,7 +226,6 @@
                             <option value="muito-urgente">Muito Urgente (até 24h)</option>
                         </select>
                     </div>
-
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary">
                             📋 Solicitar Orçamento
@@ -259,41 +244,41 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Seção de Contato com a Nova Estrutura -->
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Entre em Contato</h2>
                 <p class="section-subtitle">Estamos prontos para ajudar você!</p>
             </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📞</div>
-                        <div class="contact-details">
-                            <h3>Telefone</h3>
-                            <a href="tel:+5575998587081" class="contact-link">(75) 99858-7081</a>
-                        </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon-wrapper">
+                        <span class="contact-icon">📞</span>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💬</div>
-                        <div class="contact-details">
-                            <h3>WhatsApp</h3>
-                            <a href="https://wa.me/5575998587081" class="contact-link" target="_blank">Enviar mensagem</a>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🕒</div>
-                        <div class="contact-details">
-                            <h3>Horário de Atendimento</h3>
-                            <p>Segunda a Sexta: 8h às 18h  
-Sábado: 8h às 12h</p>
-                        </div>
+                    <div class="contact-details">
+                        <h3>Telefone</h3>
+                        <a href="tel:+5575998587081" class="contact-link">(75) 99858-7081</a>
                     </div>
                 </div>
-                <div class="contact-cta">
-                    <h3>Solicite seu orçamento</h3>
-                    <p>Entre em contato conosco e receba um orçamento personalizado para seu equipamento.</p>
+                <div class="contact-card">
+                    <div class="contact-icon-wrapper">
+                        <span class="contact-icon">💬</span>
+                    </div>
+                    <div class="contact-details">
+                        <h3>WhatsApp</h3>
+                        <a href="https://wa.me/5575998587081" class="contact-link" target="_blank">Enviar Mensagem</a>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon-wrapper">
+                        <span class="contact-icon">🕒</span>
+                    </div>
+                    <div class="contact-details">
+                        <h3>Atendimento</h3>
+                        <p>Seg. a Sex: 8h às 18h  
+Sábado: 8h às 12h</p>
+                    </div>
                 </div>
             </div>
         </div>
