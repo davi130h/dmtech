@@ -40,7 +40,7 @@ body {
 .header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); z-index: 1000; box-shadow: var(--shadow-sm); transition: var(--transition); }
 .nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
 .logo { font-weight: 800; font-size: 1.5rem; color: var(--text-dark); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; }
-.nav-menu { display: flex; list-style: none; gap: 2rem; }
+.nav-menu { display: flex; list-style: none; gap: 2rem; margin: 0; }
 .nav-link { position: relative; text-decoration: none; color: var(--text-dark); font-weight: 500; padding: 0.25rem 0; transition: color 0.3s ease; }
 .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background-color: var(--primary-blue); transition: width 0.3s ease-out; }
 .nav-link:hover, .nav-link.active { color: var(--primary-blue); }
@@ -56,7 +56,7 @@ body {
 
 /* 3. ESTILOS DE SEÇÃO PADRÃO */
 section { padding: 80px 0; }
-section:nth-of-type(odd) { background-color: var(--bg-light); } /* Fundo alternado */
+section:nth-of-type(even) { background-color: var(--bg-light); } /* Fundo alternado */
 .section-header { text-align: center; margin-bottom: 4rem; }
 .section-title { font-size: clamp(2rem, 5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-dark); }
 .section-subtitle { color: var(--text-light); font-size: 1.125rem; max-width: 700px; margin: 0 auto; }
@@ -70,7 +70,7 @@ section:nth-of-type(odd) { background-color: var(--bg-light); } /* Fundo alterna
 .hero-title { font-size: clamp(2.5rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
 .hero-title .highlight { color: var(--primary-blue); }
 .hero-subtitle { font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem; max-width: 500px; }
-.hero-buttons { display: flex; gap: 1rem; }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 1rem; }
 
 /* 5. BOTÕES */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 14px 32px; border-radius: 999px; font-weight: 600; text-decoration: none; transition: var(--transition); cursor: pointer; border: 2px solid transparent; font-size: 1rem; }
@@ -81,13 +81,13 @@ section:nth-of-type(odd) { background-color: var(--bg-light); } /* Fundo alterna
 
 /* 6. CARDS DE SERVIÇO E FEATURES */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-.service-card { padding: 35px; border-radius: 24px; background-color: var(--bg-white); border: 1px solid #e5e7eb; box-shadow: var(--shadow); transition: var(--transition); position: relative; overflow: hidden; }
+.service-card { display: flex; flex-direction: column; padding: 35px; border-radius: 24px; background-color: var(--bg-white); border: 1px solid #e5e7eb; box-shadow: var(--shadow); transition: var(--transition); position: relative; overflow: hidden; }
 .service-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
 .service-card.featured { background: var(--gradient); color: white; border: none; }
 .service-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
 .service-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-dark); }
 .featured .service-title { color: white; }
-.service-description { color: var(--text-light); margin-bottom: 1.5rem; }
+.service-description { color: var(--text-light); margin-bottom: 1.5rem; flex-grow: 1; }
 .featured .service-description { color: rgba(255, 255, 255, 0.9); }
 .service-features { display: flex; flex-direction: column; gap: 0.75rem; font-weight: 500; }
 .feature { display: flex; align-items: center; gap: 0.75rem; }
@@ -96,15 +96,15 @@ section:nth-of-type(odd) { background-color: var(--bg-light); } /* Fundo alterna
 .featured .feature::before { color: white; }
 .service-badge { position: absolute; top: 20px; right: 20px; background: var(--success-color); color: white; padding: 6px 16px; border-radius: 999px; font-size: 0.875rem; font-weight: 600; }
 .about-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
-.feature-item { display: flex; align-items: flex-start; gap: 1rem; }
-.feature-icon { font-size: 1.5rem; color: var(--primary-blue); }
+.feature-item { display: flex; align-items: flex-start; gap: 1rem; text-align: left; }
+.feature-icon { font-size: 1.5rem; color: var(--primary-blue); margin-top: 0.25rem; }
 .feature-content h3 { margin-bottom: 0.5rem; }
 .feature-content p { color: var(--text-light); }
 
 /* 7. FORMULÁRIO DE ORÇAMENTO */
 .quote-form-container { width: 100%; max-width: 800px; margin: auto; padding: 2.5rem; border-radius: 24px; background-color: var(--bg-white); box-shadow: var(--shadow-lg); border: 1px solid #e5e7eb; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-.form-group { margin-bottom: 0; } /* Removido margin-bottom para o grid controlar */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.form-group { margin-bottom: 1.5rem; }
 .form-group.form-span-2 { grid-column: span 2; }
 .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
 .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: 12px; font-family: 'Inter', sans-serif; font-size: 1rem; transition: var(--transition); background-color: var(--bg-light); }
@@ -130,5 +130,38 @@ section:nth-of-type(odd) { background-color: var(--bg-light); } /* Fundo alterna
 .contact-icon-wrapper { width: 60px; height: 60px; margin: 0 auto 1.5rem; border-radius: 50%; background-color: #eef2ff; display: flex; align-items: center; justify-content: center; }
 .contact-icon { font-size: 1.75rem; }
 .contact-details h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-.contact-details p { color: var(--text-light); }
-.contact-link { color
+.contact-details p { color: var(--text-light); font-size: 1rem; line-height: 1.6; }
+.contact-link { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.2s ease; }
+.contact-link:hover { color: var(--primary-blue-dark); }
+
+/* 9. RODAPÉ */
+.footer { background-color: var(--text-dark); color: white; padding: 60px 0 30px; }
+.footer-content { text-align: center; }
+.footer-logo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: white; text-decoration: none; }
+.footer-text { max-width: 600px; margin: 0 auto 2rem; opacity: 0.8; }
+.social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+.social-links a { color: white; opacity: 0.8; transition: var(--transition); }
+.social-links a:hover { opacity: 1; transform: translateY(-3px); }
+.social-links svg { width: 24px; height: 24px; }
+.footer-bottom { padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; opacity: 0.6; }
+
+/* 10. ANIMAÇÕES E RESPONSIVIDADE */
+.will-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.will-animate.animate { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 992px) {
+    .hero-container { flex-direction: column; text-align: center; }
+    .hero-buttons { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    section { padding: 60px 0; }
+    .nav-menu { position: fixed; top: 70px; left: 0; transform: translateX(-100%); width: 100%; height: calc(100vh - 70px); background: var(--bg-white); flex-direction: column; padding: 2rem; transition: transform 0.4s ease-out; box-shadow: var(--shadow-lg); z-index: 999; overflow-y: auto; }
+    .nav-menu.active { transform: translateX(0); }
+    .nav-link { padding: 1rem; display: block; font-size: 1.2rem; }
+    .nav-link::after { display: none; }
+    .hamburger { display: block; }
+    .form-grid { grid-template-columns: 1fr; } /* Formulário em uma coluna no mobile */
+    .form-group.form-span-2 { grid-column: span 1; }
+    .quote-form-container { padding: 1.5rem; }
+}
