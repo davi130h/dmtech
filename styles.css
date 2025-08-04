@@ -115,4 +115,53 @@ section:nth-of-type(even) { background-color: var(--bg-light); } /* Fundo altern
 .checkbox-item input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
 .checkbox-item .checkmark { width: 20px; height: 20px; border: 2px solid var(--border-color); border-radius: 4px; background-color: var(--bg-white); transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.2em; }
 .checkbox-text { font-size: 1rem; font-weight: 500; line-height: 1.5; }
-.checkbox-item input:checked ~ .checkmark
+.checkbox-item input:checked ~ .checkmark { border-color: var(--primary-blue); background-color: var(--primary-blue); }
+.checkbox-item input:checked ~ .checkmark::after { content: 'X'; font-size: 0.8rem; font-weight: 800; color: white; transform: scale(1); }
+.checkbox-item .checkmark::after { content: ''; transform: scale(0); }
+.form-actions { margin-top: 2rem; }
+.form-note { margin-top: 1rem; font-size: 0.875rem; color: var(--text-light); }
+.success-message { text-align: center; padding: 40px; }
+.success-icon { font-size: 3rem; color: var(--success-color); }
+
+/* 8. SEÇÃO DE CONTATO */
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.contact-card { background-color: var(--bg-white); padding: 2rem; border-radius: 24px; box-shadow: var(--shadow); text-align: center; transition: var(--transition); border: 1px solid #e5e7eb; }
+.contact-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
+.contact-icon-wrapper { width: 60px; height: 60px; margin: 0 auto 1.5rem; border-radius: 50%; background-color: #eef2ff; display: flex; align-items: center; justify-content: center; }
+.contact-icon { font-size: 1.75rem; }
+.contact-details h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.contact-details p { color: var(--text-light); font-size: 1rem; line-height: 1.6; }
+.contact-link { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.2s ease; }
+.contact-link:hover { color: var(--primary-blue-dark); }
+
+/* 9. RODAPÉ */
+.footer { background-color: var(--text-dark); color: white; padding: 60px 0 30px; }
+.footer-content { text-align: center; }
+.footer-logo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: white; text-decoration: none; }
+.footer-text { max-width: 600px; margin: 0 auto 2rem; opacity: 0.8; }
+.social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+.social-links a { color: white; opacity: 0.8; transition: var(--transition); }
+.social-links a:hover { opacity: 1; transform: translateY(-3px); }
+.social-links svg { width: 24px; height: 24px; fill: currentColor; }
+.footer-bottom { padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; opacity: 0.6; }
+
+/* 10. ANIMAÇÕES E RESPONSIVIDADE */
+.will-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.will-animate.animate { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 992px) {
+    .hero-container { flex-direction: column; text-align: center; }
+    .hero-buttons { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    section { padding: 60px 0; }
+    .nav-menu { position: fixed; top: 70px; left: 0; transform: translateX(-100%); width: 100%; height: calc(100vh - 70px); background: var(--bg-white); flex-direction: column; padding: 2rem; transition: transform 0.4s ease-out; box-shadow: var(--shadow-lg); z-index: 999; overflow-y: auto; }
+    .nav-menu.active { transform: translateX(0); }
+    .nav-link { padding: 1rem; display: block; font-size: 1.2rem; }
+    .nav-link::after { display: none; }
+    .hamburger { display: block; }
+    .form-grid { grid-template-columns: 1fr; } /* Formulário em uma coluna no mobile */
+    .form-group.form-span-2 { grid-column: span 1; }
+    .quote-form-container { padding: 1.5rem; }
+}
