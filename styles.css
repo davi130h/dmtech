@@ -61,7 +61,7 @@ body {
 /* 3. ESTILOS DE SEÇÃO PADRÃO */
 section { padding: 100px 0; animation: fadeIn 1s ease-out; }
 section:nth-of-type(even) { background-color: var(--bg-light); }
-.section-header { margin-bottom: 4rem; animation: slideInUp 0.8s ease-out; }
+.section-header { text-align: center; margin-bottom: 4rem; animation: slideInUp 0.8s ease-out; }
 .section-title { font-size: clamp(2.2rem, 5vw, 2.8rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-dark); }
 .section-subtitle { color: var(--text-light); font-size: 1.125rem; max-width: 700px; margin: 0 auto; }
 
@@ -129,4 +129,46 @@ section:nth-of-type(even) { background-color: var(--bg-light); }
 .success-icon { font-size: 3rem; color: var(--success-color); }
 
 /* 8. SEÇÃO DE CONTATO */
-.contact-grid { display: grid; grid-template-columns: repeat
+.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.contact-card { background-color: var(--bg-white); padding: 2rem; border-radius: 24px; box-shadow: var(--shadow); text-align: center; transition: var(--transition-smooth); border: 1px solid #e5e7eb; }
+.contact-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-xl); }
+.contact-icon-wrapper { width: 60px; height: 60px; margin: 0 auto 1.5rem; border-radius: 50%; background-color: #eef2ff; display: flex; align-items: center; justify-content: center; }
+.contact-icon { font-size: 1.75rem; }
+.contact-details h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+.contact-details p { color: var(--text-light); font-size: 1rem; line-height: 1.6; }
+.contact-link { color: var(--primary-blue); text-decoration: none; font-weight: 600; font-size: 1rem; transition: color 0.2s ease; }
+.contact-link:hover { color: var(--primary-blue-dark); }
+
+/* 9. RODAPÉ */
+.footer { background-color: var(--text-dark); color: white; padding: 60px 0 30px; }
+.footer-content { text-align: center; }
+.footer-logo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: white; text-decoration: none; }
+.footer-text { max-width: 600px; margin: 0 auto 2rem; opacity: 0.8; }
+.social-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+.social-links a { color: white; opacity: 0.8; transition: var(--transition-smooth); }
+.social-links a:hover { opacity: 1; transform: translateY(-3px); }
+.social-links svg { width: 24px; height: 24px; fill: currentColor; }
+.footer-bottom { padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.9rem; opacity: 0.6; }
+
+/* 10. BOTÃO VOLTAR AO TOPO */
+.back-to-top { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: var(--primary-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); z-index: 998; opacity: 0; visibility: hidden; transform: translateY(20px); transition: var(--transition-smooth); }
+.back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background-color: var(--primary-blue-dark); transform: scale(1.1); }
+
+/* 11. RESPONSIVIDADE */
+@media (max-width: 992px) {
+    .hero-container { flex-direction: column; text-align: center; }
+    .hero-buttons { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+    section { padding: 60px 0; }
+    .nav-menu { position: fixed; top: 70px; left: 0; transform: translateX(-100%); width: 100%; height: calc(100vh - 70px); background: var(--bg-white); flex-direction: column; padding: 2rem; transition: transform 0.4s ease-out; box-shadow: var(--shadow-lg); z-index: 999; overflow-y: auto; }
+    .nav-menu.active { transform: translateX(0); }
+    .nav-link { padding: 1rem; display: block; font-size: 1.2rem; }
+    .nav-link::after { display: none; }
+    .hamburger { display: block; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-group.form-span-2 { grid-column: span 1; }
+    .quote-form-container { padding: 1.5rem; }
+}
