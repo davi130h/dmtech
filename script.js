@@ -1,17 +1,17 @@
 /**
- * DM TECH - SCRIPT OTIMIZADO (2025)
+ * DM TECH - SCRIPT REFINADO (V2)
  *
  * Este script controla todas as interatividades do site, incluindo:
  * - Menu de navegação (hamburguer e rolagem suave)
  * - Destaque dinâmico do link ativo no menu
  * - Animações de entrada ao rolar a página
+ * - Botão "Voltar ao Topo"
  * - Validação e envio do formulário de orçamento para o WhatsApp
  */
 
 document.addEventListener('DOMContentLoaded', function() {
 
     // --- 1. SELEÇÃO DE ELEMENTOS DO DOM ---
-    // Selecionar todos os elementos uma única vez para melhor performance.
     const header = document.querySelector('.header');
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section[id]');
     const quoteForm = document.getElementById('quoteForm');
     const successMessage = document.getElementById('successMessage');
+    const backToTopButton = document.querySelector('.back-to-top');
 
     // --- 2. NAVEGAÇÃO E MENU MOBILE ---
     const toggleMenu = () => {
@@ -37,31 +38,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(event) {
-            if (this.hash !== "") {
-                event.preventDefault();
-                const targetSection = document.querySelector(this.hash);
-                if (targetSection) {
-                    const headerOffset = header.offsetHeight;
-                    const elementPosition = targetSection.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-                }
-            }
+            // A rolagem suave é controlada pelo CSS (scroll-behavior: smooth)
+            // O JavaScript apenas fecha o menu se estiver aberto
             if (navMenu.classList.contains('active')) {
                 toggleMenu();
             }
         });
     });
 
-    // --- 3. LÓGICA DE SCROLL (EFEITOS E MENU ATIVO) ---
+    // --- 3. LÓGICA DE SCROLL (EFEITOS, MENU ATIVO, BOTÃO TOPO) ---
     let lastScroll = 0;
 
     const handleScroll = () => {
-        // Efeito de esconder/mostrar header
         const currentScroll = window.scrollY;
+
+        // Efeito de esconder/mostrar header
         if (currentScroll > 100) {
             header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
-            if (currentScroll > lastScroll) {
+            if (currentScroll > lastScroll && !navMenu.classList.contains('active')) {
                 header.style.transform = 'translateY(-100%)';
             } else {
                 header.style.transform = 'translateY(0)';
@@ -75,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Destaque do link ativo no menu
         let activeSectionId = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - header.offsetHeight - 50;
+            const sectionTop = section.offsetTop - header.offsetHeight - 100;
             if (currentScroll >= sectionTop) {
                 activeSectionId = section.getAttribute('id');
             }
@@ -87,26 +81,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.classList.add('active');
             }
         });
+
+        // Lógica do botão "Voltar ao Topo"
+        if (backToTopButton) {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        }
     };
 
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('load', handleScroll); // Garante o estado correto ao carregar a página
+    window.addEventListener('load', handleScroll);
 
-    // --- 4. ANIMAÇÕES DE ENTRADA (INTERSECTION OBSERVER) ---
-    const animationObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.will-animate').forEach(el => {
-        animationObserver.observe(el);
-    });
-
-    // --- 5. FORMULÁRIO DE ORÇAMENTO ---
+    // --- 4. FORMULÁRIO DE ORÇAMENTO ---
     const handleQuoteForm = (event) => {
         event.preventDefault();
         const formData = new FormData(quoteForm);
@@ -127,18 +116,9 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     const validateForm = (data) => {
-        if (!data.name) {
-            alert("Por favor, preencha o campo 'Nome'.");
-            return false;
-        }
-        if (!data.device) {
-            alert("Por favor, selecione o 'Tipo de Equipamento'.");
-            return false;
-        }
-        if (data.services.length === 0) {
-            alert("Por favor, selecione pelo menos um serviço desejado.");
-            return false;
-        }
+        if (!data.name) { alert("Por favor, preencha o campo 'Nome'."); return false; }
+        if (!data.device) { alert("Por favor, selecione o 'Tipo de Equipamento'."); return false; }
+        if (data.services.length === 0) { alert("Por favor, selecione pelo menos um serviço desejado."); return false; }
         return true;
     };
 
@@ -151,14 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const urgencyText = document.querySelector(`#urgency option[value="${data.urgency}"]`).textContent;
 
         const messageParts = [
-            `*Novo Orçamento - DM TECH*`,
-            `\n*Cliente:* ${data.name}`,
-            `*Equipamento:* ${deviceText}`,
-            data.brand && `*Marca/Modelo:* ${data.brand}`,
-            `\n*Serviços Desejados:*`,
+            `*Novo Orçamento - DM TECH*`, `\n*Cliente:* ${data.name}`, `*Equipamento:* ${deviceText}`,
+            data.brand && `*Marca/Modelo:* ${data.brand}`, `\n*Serviços Desejados:*`,
             ...data.services.map(s => `- ${serviceNames[s] || s}`),
-            data.problem && `\n*Descrição do Problema:*\n${data.problem}`,
-            `\n*Urgência:* ${urgencyText}`
+            data.problem && `\n*Descrição do Problema:*\n${data.problem}`, `\n*Urgência:* ${urgencyText}`
         ];
 
         const whatsappNumber = '5575998587081';
@@ -171,11 +147,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (quoteForm && successMessage) {
             quoteForm.style.display = 'none';
             successMessage.style.display = 'block';
-            // Opcional: reverter após alguns segundos para permitir novo envio
-            // setTimeout(() => {
-            //     quoteForm.style.display = 'block';
-            //     successMessage.style.display = 'none';
-            // }, 5000);
         }
     };
 
